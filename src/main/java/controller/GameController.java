@@ -8,9 +8,9 @@ import model.Piece;
  * Gestiona la lógica del juego, como el movimiento y rotación de las piezas, y la actualización del tablero.
  */
 public class GameController {
-    private Board board;
-    private Piece currentPiece;
-    private boolean isGameOver;
+    public Board board;
+    public Piece currentPiece;
+    public boolean isGameOver;
 
     public GameController(Board board) {
         this.board = board;
