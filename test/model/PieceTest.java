@@ -121,4 +121,11 @@ public class PieceTest {
         };
         assertArrayEquals(expectedShape, piece.getShape());
     }
+    
+    @Test
+    public void testGenerateRandomPiece() {
+        Piece randomPiece = Piece.generateRandomPiece();
+        assertNotNull(randomPiece);
+        assertNotNull(randomPiece.getShape());
+    }
 }

@@ -1,0 +1,68 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <!-- Modelo de versión de Maven -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Información básica del proyecto -->
+    <groupId>Tetris</groupId>      <!-- Cambia "com.miNombre" por algo representativo -->
+    <artifactId>tetris-game</artifactId>   <!-- Nombre de tu proyecto -->
+    <version>1.0.0</version>
+
+    <!-- Propiedades del proyecto -->
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>   <!-- Versión del JDK que estás usando -->
+        <maven.compiler.target>11</maven.compiler.target>
+    </properties>
+
+    <!-- Dependencias del proyecto -->
+    <dependencies>
+        <!-- Dependencia de JUnit para pruebas unitarias -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Mockito para facilitar las pruebas unitarias con mocks -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.12.4</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- Configuración de compilación -->
+    <build>
+        <plugins>
+            <!-- Plugin para ejecutar los tests automáticamente durante la construcción -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <includes>
+                        <include>**/*Test.java</include> <!-- Solo ejecuta archivos que terminan en "Test.java" -->
+                    </includes>
+                </configuration>
+            </plugin>
+
+            <!-- Plugin opcional para Checkstyle (calidad de código) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

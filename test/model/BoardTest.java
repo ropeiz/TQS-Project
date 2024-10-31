@@ -115,4 +115,65 @@ public class BoardTest {
         board.occupyCell(5, 5);
         assertTrue(board.isCellOccupied(5, 5));  // Decisión: celda ocupada
     }
+    
+    @Test
+    public void testGetWidth() {
+        assertEquals(10, board.getWidth());
+    }
+    
+    @Test
+    public void testGetHeight() {
+        assertEquals(20, board.getHeight());
+    }
+
+    /**
+     * Test: Verifica que checkCollision detecta colisiones con los bordes del tablero.
+     * Caja Negra: Caso límite - Colisión en los bordes.
+     */
+    @Test
+    public void testCheckCollisionWithBoardEdges() {
+        piece.setPosition(-1, 0); // Colocar fuera del borde izquierdo
+        assertTrue(board.checkCollision(piece));
+
+        piece.setPosition(9, 19); // Colocar fuera del borde derecho
+        assertTrue(board.checkCollision(piece));
+
+        piece.setPosition(0, -1); // Colocar fuera del borde superior
+        assertTrue(board.checkCollision(piece));
+
+        piece.setPosition(0, 18); // Colocar en el borde inferior
+        assertTrue(board.checkCollision(piece));
+    }
+
+    /**
+     * Test: Verifica que lockPiece marca las celdas de la pieza en el tablero como ocupadas.
+     * Caja Negra: Partición equivalente - Bloquear una pieza en el tablero.
+     */
+    @Test
+    public void testLockPiece() {
+        piece.setPosition(0, 0); // Coloca la pieza en la esquina superior izquierda
+        board.lockPiece(piece);
+
+        assertTrue(board.isCellOccupied(0, 0));
+        assertTrue(board.isCellOccupied(0, 1));
+        assertTrue(board.isCellOccupied(1, 0));
+        assertTrue(board.isCellOccupied(1, 1));
+    }
+
+    /**
+     * Test: Verifica que checkCollision detecta colisiones con piezas ya bloqueadas.
+     */
+    @Test
+    public void testCheckCollisionWithLockedPieces() {
+        // Bloquea una pieza en la esquina superior izquierda
+        board.lockPiece(piece);
+
+        // Coloca otra pieza en la misma posición y verifica que haya colisión
+        Piece newPiece = new Piece(new boolean[][]{
+            {true, true},
+            {true, true}
+        });
+        newPiece.setPosition(0, 0);
+        assertTrue(board.checkCollision(newPiece));
+    }
 }

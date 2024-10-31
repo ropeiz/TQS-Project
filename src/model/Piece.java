@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 public class Piece {
     private boolean[][] shape; // shape representation
     private int x;
@@ -53,6 +55,29 @@ public class Piece {
             }
         }
         shape = rotatedShape;
+    }
+    
+    public static Piece generateRandomPiece() {
+        Random random = new Random();
+        boolean[][][] shapes = {
+            // Pieza cuadrada
+            {{true, true}, {true, true}},
+            // Pieza en forma de línea
+            {{true, true, true, true}},
+            // Pieza en forma de T
+            {{false, true, false}, {true, true, true}},
+            // Pieza en forma de L
+            {{true, false}, {true, false}, {true, true}},
+            // Pieza en forma de Z
+            {{true, true, false}, {false, true, true}},
+            // Pieza en forma de J
+            {{false, true}, {false, true}, {true, true}},
+            // Pieza en forma de S
+            {{false, true, true}, {true, true, false}}
+        };
+
+        boolean[][] randomShape = shapes[random.nextInt(shapes.length)];
+        return new Piece(randomShape);
     }
 
     // Devuelve el ancho de la pieza (para validaciones de colisión y límites)

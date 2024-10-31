@@ -10,6 +10,14 @@ public class Board {
         this.height = height;
         grid = new boolean[height][width]; //board inicialization
     }
+    
+    public int getWidth() {
+        return this.width;
+    }
+    
+    public int getHeight() {
+        return this.height;
+    }
 
     public boolean isCellOccupied(int x, int y) {
     	
@@ -50,6 +58,39 @@ public class Board {
         }
         return linesCleared; // Retorna la cantidad de líneas limpiadas para el sistema de puntuación
     }
+    
+    public boolean checkCollision(Piece piece) {
+        for (int y = 0; y < piece.getShape().length; y++) {
+            for (int x = 0; x < piece.getShape()[y].length; x++) {
+                if (piece.getShape()[y][x]) {
+                    int boardX = piece.getX() + x;
+                    int boardY = piece.getY() + y;
+
+                    // Comprueba colisión en los límites o con celdas ocupadas
+                    if (boardX < 0 || boardX >= width || boardY < 0 || boardY >= height || grid[boardY][boardX]) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Bloquea la pieza actual en el tablero, es decir, la fija en su posición.
+     * @param piece La pieza que se va a bloquear.
+     */
+    public void lockPiece(Piece piece) {
+        for (int y = 0; y < piece.getShape().length; y++) {
+            for (int x = 0; x < piece.getShape()[y].length; x++) {
+                if (piece.getShape()[y][x]) {
+                    int boardX = piece.getX() + x;
+                    int boardY = piece.getY() + y;
+                    grid[boardY][boardX] = true; // Marca la celda como ocupada
+                }
+            }
+        }
+    }
 
     // Método auxiliar para verificar si una línea está completamente llena
     private boolean isLineFull(int y) {
@@ -83,5 +124,7 @@ public class Board {
     private boolean isOutOfBounds(int x, int y) {
         return x < 0 || x >= width || y < 0 || y >= height;
     }
+    
+    
 
 }
