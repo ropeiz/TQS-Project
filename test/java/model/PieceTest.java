@@ -131,7 +131,7 @@ public class PieceTest {
     
     
     @Test
-    public void testError {
+    public void testError() {
     	assertEquals(5, 6);
     }
 }
