@@ -103,7 +103,7 @@ public class Board {
     }
 
     // Método auxiliar para limpiar una línea específica
-    private void clearLine(int y) {
+    public void clearLine(int y) {
         for (int x = 0; x < width; x++) {
             grid[y][x] = false;
         }
