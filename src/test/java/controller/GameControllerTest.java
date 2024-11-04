@@ -105,7 +105,7 @@ public class GameControllerTest {
     @Test
     public boolean testRotatePieceWithCollision() {
         piece = Mockito.mock(Piece.class);
-        Mockito.when(piece.rotateClockwise()).thenCallRealMethod();
+        Mockito.doCallRealMethod().when(piece).rotateClockwise();
         Mockito.when(board.checkCollision(piece)).thenReturn(true);
 
         gameController.rotatePiece();
