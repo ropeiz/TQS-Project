@@ -93,7 +93,11 @@ public class GameControllerTest {
      */
     @Test
     public void testRotatePieceWithCollision() {
-        piece = Mockito.spy(new Piece(initialShape)); 
+    	shape = new boolean[][]{
+            {true, true},
+            {true, true}
+        };
+        piece = Mockito.spy(new Piece(shape)); 
         gameController.setPiece(piece); 
         Mockito.doReturn(true).when(board).checkCollision(piece);
 
