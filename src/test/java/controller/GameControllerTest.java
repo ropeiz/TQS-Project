@@ -103,7 +103,7 @@ public class GameControllerTest {
      * Caja Blanca: Cobertura de caminos - Rotación y deshacer rotación.
      */
     @Test
-    public boolean testRotatePieceWithCollision() {
+    public void testRotatePieceWithCollision() {
         piece = Mockito.mock(Piece.class);
         Mockito.doCallRealMethod().when(piece).rotateClockwise();
         Mockito.when(board.checkCollision(piece)).thenReturn(true);
@@ -111,6 +111,7 @@ public class GameControllerTest {
         gameController.rotatePiece();
         Mockito.verify(piece).rotateClockwise();
         Mockito.verify(piece).rotateCounterClockwise();
+        
     }
 
     /**
@@ -118,7 +119,7 @@ public class GameControllerTest {
      * Design by Contract - Postcondición: El juego debe estar en estado de Game Over.
      */
     @Test
-    public boolean testGameOverWhenNoSpaceForNewPiece() {
+    public void testGameOverWhenNoSpaceForNewPiece() {
         board = Mockito.mock(Board.class);
         Mockito.when(board.checkCollision(Mockito.any())).thenReturn(true);
         gameController = new GameController(board);
