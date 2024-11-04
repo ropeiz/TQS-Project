@@ -149,7 +149,7 @@ public class BoardTest {
         piece.setPosition(0, -1); // Colocar fuera del borde superior
         assertTrue(board.checkCollision(piece));
 
-        piece.setPosition(0, 18); // Colocar en el borde inferior
+        piece.setPosition(0, 19); // Colocar en el borde inferior
         assertTrue(board.checkCollision(piece));
     }
 

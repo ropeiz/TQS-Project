@@ -1,4 +1,4 @@
-package controller;
+spackage controller;
 
 import model.Board;
 import model.Piece;
