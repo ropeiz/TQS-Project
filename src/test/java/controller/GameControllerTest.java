@@ -98,6 +98,7 @@ public class GameControllerTest {
     	        { true, true, true }
     	    };
         piece = Mockito.spy(new Piece(shape)); 
+        
         gameController.setPiece(piece); 
         Mockito.doReturn(true).when(board).checkCollision(piece);
 
