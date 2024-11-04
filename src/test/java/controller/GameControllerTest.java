@@ -10,8 +10,9 @@ import org.mockito.Mockito;
 
 public class GameControllerTest {
     private GameController gameController;
-    private Board board;
     private Piece piece;
+    @Mock
+    private Board board;
 
     @Before
     public void setUp() {
