@@ -28,6 +28,13 @@ public class GameController {
             this.isGameOver = true;
         }
     }
+    
+    /**
+     * Cambiamos la pieza actual por otra recibida por parametro.
+     *     */
+    public void setPiece(Piece piece) {
+        this.currentPiece = piece;
+    }
 
     /**
      * Mueve la pieza actual hacia abajo una posición.
