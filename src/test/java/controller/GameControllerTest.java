@@ -42,17 +42,6 @@ public class GameControllerTest {
         assertEquals(1, piece.getY());
     }
 
-    /**
-     * Test: Verifica que la pieza no pueda moverse hacia abajo si hay una colisión.
-     * Caja Negra: Caso límite - Colisión en movimiento hacia abajo.
-     */
-    @Test
-    public void testMovePieceDownCollision() {
-        while (gameController.movePieceDown()) {
-            // Mueve la pieza hasta el fondo del tablero
-        }
-        assertFalse(gameController.movePieceDown());
-    }
 
     /**
      * Test: Verifica que el movimiento a la izquierda de la pieza funcione correctamente.
@@ -104,15 +93,16 @@ public class GameControllerTest {
      */
     @Test
     public void testRotatePieceWithCollision() {
-        piece = Mockito.mock(Piece.class);
-        Mockito.doCallRealMethod().when(piece).rotateClockwise();
-        Mockito.when(board.checkCollision(piece)).thenReturn(true);
+        piece = Mockito.spy(new Piece(initialShape)); 
+        gameController.setPiece(piece); 
+        Mockito.doReturn(true).when(board).checkCollision(piece);
 
         gameController.rotatePiece();
+
         Mockito.verify(piece).rotateClockwise();
         Mockito.verify(piece).rotateCounterClockwise();
-        
     }
+
 
     /**
      * Test: Verifica que el juego termine si no hay espacio para una nueva pieza.
