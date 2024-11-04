@@ -132,6 +132,12 @@ public class BoardTest {
      */
     @Test
     public void testCheckCollisionWithBoardEdges() {
+    	
+    	shape = new boolean[][]{
+            {true, true},
+            {true, true}
+        };
+        piece = new Piece(shape);
         piece.setPosition(-1, 0); // Colocar fuera del borde izquierdo
         assertTrue(board.checkCollision(piece));
 
@@ -151,6 +157,11 @@ public class BoardTest {
      */
     @Test
     public void testLockPiece() {
+    	shape = new boolean[][]{
+            {true, true},
+            {true, true}
+        };
+        piece = new Piece(shape);
         piece.setPosition(0, 0); // Coloca la pieza en la esquina superior izquierda
         board.lockPiece(piece);
 
@@ -165,6 +176,11 @@ public class BoardTest {
      */
     @Test
     public void testCheckCollisionWithLockedPieces() {
+    	shape = new boolean[][]{
+            {true, true},
+            {true, true}
+        };
+        piece = new Piece(shape);
         // Bloquea una pieza en la esquina superior izquierda
         board.lockPiece(piece);
 
