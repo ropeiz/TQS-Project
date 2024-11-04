@@ -129,9 +129,4 @@ public class PieceTest {
         assertNotNull(randomPiece.getShape());
     }
     
-    
-    @Test
-    public void testError() {
-    	assertEquals(5, 6);
-    }
 }
