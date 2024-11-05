@@ -4,10 +4,25 @@ import model.Board;
 import model.Piece;
 
 public class GameController {
+    
+    // Representa el tablero en el que se juega.
     public Board board;
+    
+    //La pieza actualmente en juego.
     public Piece currentPiece;
+
+    //Indica si el juego ha terminado.
     public boolean isGameOver;
 
+    /**
+     * Constructor de la clase GameController.
+     *
+     * Inicializa el controlador con el tablero proporcionado 
+     * y establece el estado del juego como activo.
+     * También genera una nueva pieza para comenzar el juego.
+     *
+     * @param board El tablero en el que se jugará el juego.
+     */
     public GameController(Board board) {
         this.board = board;
         this.isGameOver = false;
@@ -29,7 +44,7 @@ public class GameController {
     /**
      * Cambiamos la pieza actual por otra recibida por parametro.
      *     */
-    public void setPiece(Piece piece) {
+    public void setPiece(final Piece piece) {
         this.currentPiece = piece;
     }
 
@@ -38,7 +53,9 @@ public class GameController {
      * @return true si el movimiento fue exitoso, false si no fue posible.
      */
     public boolean movePieceDown() {
-        if (isGameOver) return false;
+        if (isGameOver) {
+        	return false;
+        }
 
         currentPiece.move(0, 1);
         if (board.checkCollision(currentPiece)) {

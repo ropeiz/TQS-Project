@@ -1,6 +1,6 @@
 /**
  
-Este paquete contiene las clases relacionadas con el control de la lógica del juego,
+Este paquete contiene las clases relacionadas con la lógica del juego,
 incluyendo el controlador principal y sus interacciones con otras clases.
 Clases principales:
 GameController: Controlador que maneja la lógica principal del juego.

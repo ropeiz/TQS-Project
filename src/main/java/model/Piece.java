@@ -12,28 +12,71 @@ public class Piece {
     /** Coordenada Y de la posición actual de la pieza en el tablero. */
     private int y;
 
-    public Piece(final boolean[][] shape) {
-        this.shape = shape;
-        this.x = 0;
-        this.y = 0;
+    /**
+     * Clase que representa una pieza en el juego de Tetris.
+     */
+    public final class Piece {
+        private boolean[][] shape;
+        private int x;
+        private int y;
+
+        /**
+         * Constructor de la clase Piece.
+         *
+         * Inicializa una nueva pieza con la forma dada,
+         * y establece su posición inicial en (0, 0).
+         *
+         * @param newShape La forma de la pieza representada como una matriz booleana.
+         */
+        public Piece(final boolean[][] newShape) {
+            this.shape = newShape;
+            this.x = 0;
+            this.y = 0;
+        }
+
+        /**
+         * Devuelve la forma de la pieza.
+         *
+         * @return La forma de la pieza representada como una matriz booleana.
+         */
+        public boolean[][] getShape() {
+            return shape;
+        }
+
+        /**
+         * Devuelve la coordenada x de la posición de la pieza.
+         *
+         * @return La coordenada x de la pieza.
+         */
+        public int getX() {
+            return x;
+        }
+
+        /**
+         * Devuelve la coordenada y de la posición de la pieza.
+         *
+         * @return La coordenada y de la pieza.
+         */
+        public int getY() {
+            return y;
+        }
+
+        /**
+         * Mueve la pieza a una nueva posición.
+         *
+         * Este método actualiza la posición de la pieza sumando dx y dy
+         * a las coordenadas actuales de la pieza.
+         *
+         * @param dx El cambio en la coordenada x.
+         * @param dy El cambio en la coordenada y.
+         */
+        public void move(final int dx, final int dy) {
+            this.x += dx;
+            this.y += dy;
+        }
     }
 
-    public boolean[][] getShape() {
-        return shape;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void move(int dx, int dy) {
-        this.x += dx;
-        this.y += dy;
-    }
+    
     // Rotación de la pieza en el sentido de las agujas del reloj
     public void rotateClockwise() {
         int rows = shape.length;
@@ -96,8 +139,8 @@ public class Piece {
     }
 
     // Coloca la pieza en una posición específica del tablero
-    public void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public void setPosition( final int newX, final int newY) {
+        this.x = newX;
+        this.y = newY;
     }
 }
