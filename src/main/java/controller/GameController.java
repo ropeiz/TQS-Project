@@ -3,10 +3,6 @@ package controller;
 import model.Board;
 import model.Piece;
 
-/**
- * Controlador principal del juego Tetris.
- * Gestiona la lógica del juego, como el movimiento y rotación de las piezas, y la actualización del tablero.
- */
 public class GameController {
     public Board board;
     public Piece currentPiece;
@@ -20,10 +16,11 @@ public class GameController {
 
     /**
      * Genera una nueva pieza en el tablero.
+     * La pieza empieza en el centro superior.
      */
     public void spawnNewPiece() {
-        this.currentPiece = Piece.generateRandomPiece();  // Asume que existe un método estático para generar una pieza aleatoria
-        currentPiece.setPosition(board.getWidth() / 2, 0);  // La pieza empieza en el centro superior
+        this.currentPiece = Piece.generateRandomPiece(); 
+        currentPiece.setPosition(board.getWidth() / 2, 0);  
         if (board.checkCollision(currentPiece)) {
             this.isGameOver = true;
         }
@@ -97,6 +94,5 @@ public class GameController {
     public boolean isGameOver() {
         return isGameOver;
     }
-    
     
 }

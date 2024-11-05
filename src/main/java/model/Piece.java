@@ -3,11 +3,16 @@ package model;
 import java.util.Random;
 
 public class Piece {
-    private boolean[][] shape; // shape representation
+    /** Matriz booleana que representa la forma de la pieza. */
+    private boolean[][] shape;
+
+    /** Coordenada X de la posición actual de la pieza en el tablero. */
     private int x;
+
+    /** Coordenada Y de la posición actual de la pieza en el tablero. */
     private int y;
 
-    public Piece(boolean[][] shape) {
+    public Piece(final boolean[][] shape) {
         this.shape = shape;
         this.x = 0;
         this.y = 0;

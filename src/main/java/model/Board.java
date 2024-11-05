@@ -1,8 +1,13 @@
 package model;
 
 public class Board {
+    /** Ancho del tablero de juego. */
     private int width;
+
+    /** Altura del tablero de juego. */
     private int height;
+
+    /** Matriz que representa las celdas ocupadas y vacías del tablero. */
     private boolean[][] grid;
 
     public Board(int width, int height) {
@@ -22,7 +27,7 @@ public class Board {
     public boolean isCellOccupied(int x, int y) {
     	
         if (x < 0 || x >= width || y < 0 || y >= height) {
-            return false; // out of range
+            return false; // fuera de rango
         }
         return grid[y][x];
     }
@@ -56,7 +61,7 @@ public class Board {
                 shiftLinesDown(y);
             }
         }
-        return linesCleared; // Retorna la cantidad de líneas limpiadas para el sistema de puntuación
+        return linesCleared; // Cantidad de líneas limpiadas
     }
     
     public boolean checkCollision(Piece piece) {
@@ -67,7 +72,9 @@ public class Board {
                     int boardY = piece.getY() + y;
 
                     // Comprueba colisión en los límites o con celdas ocupadas
-                    if (boardX < 0 || boardX >= width || boardY < 0 || boardY >= height || grid[boardY][boardX]) {
+                    if ((boardX < 0 || boardX >= width) || 
+                    	(boardY < 0 || boardY >= height) || 
+                    	 grid[boardY][boardX]) {
                         return true;
                     }
                 }
@@ -92,11 +99,11 @@ public class Board {
         }
     }
 
-    // Método auxiliar para verificar si una línea está completamente llena
+    // Verificar si una línea está completamente llena
     private boolean isLineFull(int y) {
         for (int x = 0; x < width; x++) {
-            if (!grid[y][x]) {
-                return false; // Si alguna celda está vacía, la línea no está llena
+            if (!grid[y][x]) { // Si alguna celda está vacía
+                return false; 
             }
         }
         return true;
@@ -120,7 +127,7 @@ public class Board {
         }
     }
 
-    // Método auxiliar para verificar si una coordenada está fuera de los límites
+    // Verificar si una coordenada está fuera de los límites
     private boolean isOutOfBounds(int x, int y) {
         return x < 0 || x >= width || y < 0 || y >= height;
     }

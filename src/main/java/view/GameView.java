@@ -5,7 +5,7 @@ import model.Board;
 
 /**
  * Clase GameView.
- * Representa la vista del juego, mostrando el estado actual del tablero en la consola.
+ * Representa el estado actual del tablero en la consola.
  */
 public class GameView {
 
@@ -13,7 +13,7 @@ public class GameView {
      * Muestra el tablero en la consola.
      * @param board El tablero del juego a mostrar.
      */
-    public void displayBoard(Board board) {
+    public void displayBoard(final Board board) {
         int width = board.getWidth();
         int height = board.getHeight();
 
@@ -24,7 +24,7 @@ public class GameView {
         for (int y = 0; y < height; y++) {
             System.out.print("|"); // Borde izquierdo
             for (int x = 0; x < width; x++) {
-                // Muestra una "X" para celdas ocupadas y un espacio para celdas vacías
+                // Muestra una "X" para celdas ocupadas
                 System.out.print(board.isCellOccupied(x, y) ? "X" : " ");
             }
             System.out.println("|"); // Borde derecho

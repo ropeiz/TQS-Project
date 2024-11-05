@@ -30,7 +30,8 @@ public class TetrisGame {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Bienvenido a Tetris! Controles:");
-        System.out.println("a = Izquierda, d = Derecha, s = Abajo, w = Rotar, q = Salir");
+        System.out.println("a = Izquierda, d = Derecha, s = Abajo, " +
+                "w = Rotar, q = Salir");
 
         while (running) {
             view.displayBoard(board); // Muestra el tablero
@@ -53,8 +54,7 @@ public class TetrisGame {
     }
 
     /**
-     * Procesa la entrada del usuario y ejecuta los movimientos correspondientes.
-     * @param input La entrada del usuario para el control de la pieza.
+     * Procesa la entrada del usuario y hace los movimientos correspondientes.
      */
     private void processInput(String input) {
         switch (input) {
@@ -75,7 +75,8 @@ public class TetrisGame {
                 System.out.println("Saliendo del juego...");
                 break;
             default:
-                System.out.println("Entrada no válida. Usa a (izq), d (der), s (abajo), w (rotar), q (salir).");
+            	System.out.println("Entrada no válida. Usa a (izq), d (der), s (abajo), " +
+                        "w (rotar), q (salir).");
                 break;
         }
     }
