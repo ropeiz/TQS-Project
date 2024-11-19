@@ -90,16 +90,16 @@ public class GameControllerTest {
      * Test: Verifica que el método `rotatePiece` funcione y revierta la rotación si
      * hay una colisión. Caja Blanca: Cobertura de caminos - Rotación y deshacer
      * rotación.
-     * 
+     *
      * @Test public void testRotatePieceWithCollision() { boolean[][] shape = { {
      *       false, true, false }, { true, true, true } }; piece = Mockito.spy(new
      *       Piece(shape));
-     * 
+     *
      *       gameController.setPiece(piece);
      *       Mockito.doReturn(true).when(board).checkCollision(piece);
-     * 
+     *
      *       gameController.rotatePiece();
-     * 
+     *
      *       Mockito.verify(piece).rotateClockwise();
      *       Mockito.verify(piece).rotateCounterClockwise(); }
      */
@@ -108,12 +108,12 @@ public class GameControllerTest {
      * Test: Verifica que el juego termine si no hay espacio para una nueva pieza.
      * Design by Contract - Postcondición: El juego debe estar en estado de Game
      * Over.
-     * 
+     *
      * @Test public void testGameOverWhenNoSpaceForNewPiece() { board =
      *       Mockito.mock(Board.class);
      *       Mockito.when(board.checkCollision(Mockito.any())).thenReturn(true);
      *       gameController = new GameController(board);
-     * 
+     *
      *       assertTrue(gameController.isGameOver()); }
      */
 }

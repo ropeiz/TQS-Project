@@ -120,8 +120,9 @@ public final class Board {
                     int boardY = piece.getY() + y;
 
                     // Comprueba colisión en los límites o con celdas ocupadas
-                    if ((boardX < 0 || boardX >= width) ||
-                        (boardY < 0 || boardY >= height) || grid[boardY][boardX]) {
+                    if ((boardX < 0 || boardX >= width)
+                        || (boardY < 0 || boardY >= height)
+                        || grid[boardY][boardX]) {
                         return true;
                     }
                 }
