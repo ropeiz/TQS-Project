@@ -18,7 +18,7 @@ public class GameController {
     
     /** Devuelve la pieza actualmente en juego.*/
     public Piece getCurrentPiece() {
-    	return this.currentPiece
+    	return this.currentPiece;
     }
 
     /** Indica si el juego ha terminado.*/
