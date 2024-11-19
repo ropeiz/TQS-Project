@@ -1,5 +1,5 @@
 /**
- 
+
 Este paquete contiene las clases relacionadas con la lógica del juego,
 incluyendo el controlador principal y sus interacciones con otras clases.
 Clases principales:

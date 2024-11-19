@@ -126,17 +126,21 @@ public final class Piece {
         return new Piece(randomShape);
     }
 
-    /** Devuelve el ancho de la pieza (para validaciones de colisión y límites).*/
+    /** @return Devuelve el ancho de la pieza
+     *(para validaciones de colisión y límites).*/
     public int getWidth() {
         return shape[0].length;
     }
 
-    /** Devuelve la altura de la pieza.*/
+    /** @return Devuelve la altura de la pieza.*/
     public int getHeight() {
         return shape.length;
     }
 
-    /** Coloca la pieza en una posición específica del tablero.*/
+    /** Coloca la pieza en una posición específica del tablero.
+     * @param newX será la nueva posición X
+     * @param newY será la nueva posición Y
+     * */
     public void setPosition(final int newX, final int newY) {
         this.x = newX;
         this.y = newY;

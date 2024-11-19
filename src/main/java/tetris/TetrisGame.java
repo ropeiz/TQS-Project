@@ -19,12 +19,12 @@ public class TetrisGame {
 	/**La instancia del tablero que maneja la lógica del juego.*/
 	private Board board;
 
-	/**El controlador del juego que gestiona las acciones/eventos del juego.*/
+	/**El controlador del juego que gestiona acciones/eventos del juego.*/
 	private GameController controller;
 
 	/**La instancia de la vista responsable de renderizar el juego.*/
 	private GameView view;
-	
+
 	/**Indica si el juego se está ejecutando actualmente.*/
 	private boolean running;
 

@@ -3,29 +3,33 @@ package controller;
 import model.Board;
 import model.Piece;
 
-public class GameController {
+public final class GameController {
 
     /** Representa el tablero en el que se juega.*/
-    public Board board;
-    
+    private Board board;
+
+    /** @return Devuelve el tablero en el que se juega.*/
     public Board getBoard() {
     	return this.board;
     }
-    
-    
+
     /** La pieza actualmente en juego.*/
-    public Piece currentPiece;
-    
-    /** Devuelve la pieza actualmente en juego.*/
+    private Piece currentPiece;
+
+    /**
+     * @return Devuelve la pieza actualmente en juego.
+     * */
     public Piece getCurrentPiece() {
     	return this.currentPiece;
     }
 
     /** Indica si el juego ha terminado.*/
     private boolean isGameOver;
-    
-    
-    /** Devuelve si el juego ha terminado.*/
+
+    /**
+     * @return Devuelve si el juego ha terminado.
+     * 
+     * */
     public boolean getIsGameOver() {
     	return this.isGameOver;
     }
