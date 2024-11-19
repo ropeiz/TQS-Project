@@ -9,23 +9,23 @@ import java.util.Scanner;
  * Contiene el bucle de juego que actualiza y procesa los movimientos.
  */
 public class TetrisGame {
-	
-	//El ancho del tablero de juego.
+
+	/**El ancho del tablero de juego.*/
 	private static final int BOARD_WIDTH = 10;
 
-	//La altura del tablero de juego.
+	/**La altura del tablero de juego.*/
 	private static final int BOARD_HEIGHT = 20;
 
-	//La instancia del tablero que maneja la lógica del juego.
+	/**La instancia del tablero que maneja la lógica del juego.*/
 	private Board board;
 
-	//El controlador del juego que gestiona las acciones y eventos del juego.
+	/**El controlador del juego que gestiona las acciones/eventos del juego.*/
 	private GameController controller;
 
-	//La instancia de la vista responsable de renderizar el juego.
+	/**La instancia de la vista responsable de renderizar el juego.*/
 	private GameView view;
 	
-	//Indica si el juego se está ejecutando actualmente.
+	/**Indica si el juego se está ejecutando actualmente.*/
 	private boolean running;
 
 	/**
@@ -47,7 +47,7 @@ public class TetrisGame {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Bienvenido a Tetris! Controles:");
-        System.out.println("a = Izquierda, d = Derecha, s = Abajo, " 
+        System.out.println("a = Izquierda, d = Derecha, s = Abajo, "
                + "w = Rotar, q = Salir");
 
         while (running) {
@@ -60,7 +60,7 @@ public class TetrisGame {
 
             // Actualiza el estado del juego moviendo la pieza hacia abajo
             if (!controller.movePieceDown()) {
-                if (controller.isGameOver()) {
+                if (controller.getIsGameOver()) {
                     System.out.println("¡Juego terminado!");
                     running = false;
                 }

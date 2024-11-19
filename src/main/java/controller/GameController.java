@@ -4,26 +4,42 @@ import model.Board;
 import model.Piece;
 
 public class GameController {
-    
-    // Representa el tablero en el que se juega.
+
+    /** Representa el tablero en el que se juega.*/
     public Board board;
     
-    //La pieza actualmente en juego.
+    public Board getBoard() {
+    	return this.board;
+    }
+    
+    
+    /** La pieza actualmente en juego.*/
     public Piece currentPiece;
+    
+    /** Devuelve la pieza actualmente en juego.*/
+    public Piece getCurrentPiece() {
+    	return this.currentPiece
+    }
 
-    //Indica si el juego ha terminado.
-    public boolean isGameOver;
+    /** Indica si el juego ha terminado.*/
+    private boolean isGameOver;
+    
+    
+    /** Devuelve si el juego ha terminado.*/
+    public boolean getIsGameOver() {
+    	return this.isGameOver;
+    }
 
     /**
      * Constructor de la clase GameController.
      *
-     * Inicializa el controlador con el tablero proporcionado 
+     * Inicializa el controlador con el tablero proporcionado
      * y establece el estado del juego como activo.
      * También genera una nueva pieza para comenzar el juego.
      *
      * @param board El tablero en el que se jugará el juego.
      */
-    public GameController(Board board) {
+    public GameController(final Board board) {
         this.board = board;
         this.isGameOver = false;
         spawnNewPiece();
@@ -34,15 +50,16 @@ public class GameController {
      * La pieza empieza en el centro superior.
      */
     public void spawnNewPiece() {
-        this.currentPiece = Piece.generateRandomPiece(); 
-        currentPiece.setPosition(board.getWidth() / 2, 0);  
+        this.currentPiece = Piece.generateRandomPiece();
+        currentPiece.setPosition(board.getWidth() / 2, 0);
         if (board.checkCollision(currentPiece)) {
             this.isGameOver = true;
         }
     }
-    
+
     /**
      * Cambiamos la pieza actual por otra recibida por parametro.
+     * @param piece La pieza de tetris que pasará a ser la actual
      *     */
     public void setPiece(final Piece piece) {
         this.currentPiece = piece;
@@ -111,5 +128,5 @@ public class GameController {
     public boolean isGameOver() {
         return isGameOver;
     }
-    
+
 }

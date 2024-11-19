@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * Clase que representa una pieza del juego Tetris.
  */
-public class Piece {
+public final class Piece {
     /** Matriz booleana que representa la forma de la pieza. */
     private boolean[][] shape;
 
@@ -21,7 +21,7 @@ public class Piece {
      * Inicializa una nueva pieza con la forma dada,
      * y establece su posición inicial en (0, 0).
      *
-     * @param newShape La forma de la pieza representada como una matriz booleana.
+     * @param newShape La forma de la pieza representada en matriz booleana.
      */
     public Piece(final boolean[][] newShape) {
         this.shape = newShape;
@@ -70,7 +70,7 @@ public class Piece {
         this.y += dy;
     }
 
-    // Rotación de la pieza en el sentido de las agujas del reloj
+    /** Rotación de la pieza en el sentido de las agujas del reloj.*/
     public void rotateClockwise() {
         int rows = shape.length;
         int cols = shape[0].length;
@@ -84,7 +84,7 @@ public class Piece {
         shape = rotatedShape;
     }
 
-    // Rotación de la pieza en el sentido contrario a las agujas del reloj
+    /** Rotación de la pieza en el sentido contrario a las agujas del reloj.*/
     public void rotateCounterClockwise() {
         int rows = shape.length;
         int cols = shape[0].length;
@@ -126,17 +126,17 @@ public class Piece {
         return new Piece(randomShape);
     }
 
-    // Devuelve el ancho de la pieza (para validaciones de colisión y límites)
+    /** Devuelve el ancho de la pieza (para validaciones de colisión y límites).*/
     public int getWidth() {
         return shape[0].length;
     }
 
-    // Devuelve la altura de la pieza
+    /** Devuelve la altura de la pieza.*/
     public int getHeight() {
         return shape.length;
     }
 
-    // Coloca la pieza en una posición específica del tablero
+    /** Coloca la pieza en una posición específica del tablero.*/
     public void setPosition(final int newX, final int newY) {
         this.x = newX;
         this.y = newY;
