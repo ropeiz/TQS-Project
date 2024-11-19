@@ -10,7 +10,7 @@ public final class GameController {
 
     /** @return Devuelve el tablero en el que se juega.*/
     public Board getBoard() {
-    	return this.board;
+        return this.board;
     }
 
     /** La pieza actualmente en juego.*/
