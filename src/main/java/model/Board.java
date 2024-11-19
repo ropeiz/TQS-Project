@@ -178,7 +178,7 @@ public final class Board {
         }
     }
 
-    /** 
+    /**
      * @param x La posición X a comprobar
      * @param y La posición Y a comprobar
      * @return Devuelve si una coordenada está fuera de los límites.

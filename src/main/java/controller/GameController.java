@@ -28,7 +28,7 @@ public final class GameController {
 
     /**
      * @return Devuelve si el juego ha terminado.
-     * 
+     *
      * */
     public boolean getIsGameOver() {
     	return this.isGameOver;
@@ -43,7 +43,7 @@ public final class GameController {
      *
      * @param board El tablero en el que se jugará el juego.
      */
-    public GameController(final Board board) {
+    public void GameController(final Board board) {
         this.board = board;
         this.isGameOver = false;
         spawnNewPiece();
