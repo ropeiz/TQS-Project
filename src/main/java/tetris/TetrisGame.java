@@ -29,8 +29,10 @@ public class TetrisGame {
     private boolean running;
 
     /**
-     * Constructor de la clase TetrisGame. Inicializa el tablero del juego, el
-     * controlador del juego, la vista del juego y establece el estado del juego a
+     * Constructor de la clase TetrisGame.
+     * Inicializa el tablero del juego, el
+     * controlador del juego, la vista del
+     * juego y establece el estado del juego a
      * ejecución.
      */
     public TetrisGame() {
@@ -47,7 +49,8 @@ public class TetrisGame {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Bienvenido a Tetris! Controles:");
-        System.out.println("a = Izquierda, d = Derecha, s = Abajo, " + "w = Rotar, q = Salir");
+        System.out.println("a = Izquierda, d = Derecha, s = Abajo, "
+        + "w = Rotar, q = Salir");
 
         while (running) {
             view.displayBoard(board); // Muestra el tablero
@@ -93,7 +96,8 @@ public class TetrisGame {
             System.out.println("Saliendo del juego...");
             break;
         default:
-            System.out.println("Entrada no válida. Usa a (izq), " + " d (der), s (abajo), w (rotar), q (salir).");
+            System.out.println("Entrada no válida. " + "Usa a (izq), "
+            + " d (der), s (abajo), w (rotar), q (salir).");
             break;
         }
     }

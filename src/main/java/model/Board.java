@@ -27,7 +27,7 @@ public final class Board {
 
     /**
      * Devuelve el ancho del tablero.
-     * 
+     *
      * @return El ancho del tablero.
      */
     public int getWidth() {
@@ -36,7 +36,7 @@ public final class Board {
 
     /**
      * Devuelve la altura del tablero.
-     * 
+     *
      * @return La altura del tablero.
      */
     public int getHeight() {
@@ -48,7 +48,8 @@ public final class Board {
      *
      * @param x La coordenada x de la celda a verificar.
      * @param y La coordenada y de la celda a verificar.
-     * @return true si la celda está ocupada, false si está libre o fuera de rango.
+     * @return true si la celda está ocupada,
+     * false si está libre o fuera de rango.
      */
     public boolean isCellOccupied(final int x, final int y) {
         if (x < 0 || x >= width || y < 0 || y >= height) {
@@ -71,7 +72,7 @@ public final class Board {
 
     /**
      * Método para marcar una celda como vacía.
-     * 
+     *
      * @param x La posición X de la casilla
      * @param y La posición Y de la casilla
      */
@@ -100,9 +101,12 @@ public final class Board {
     }
 
     /**
-     * Verifica si una pieza colisiona con los límites del tablero o con otras
-     * piezas ocupadas. Este método recorre la forma de la pieza y verifica si
-     * alguna de sus celdas ocupa una posición fuera de los límites del tablero o
+     * Verifica si una pieza colisiona con
+     * los límites del tablero o con otras
+     * piezas ocupadas. Este método recorre
+     * la forma de la pieza y verifica si
+     * alguna de sus celdas ocupa una posición
+     * fuera de los límites del tablero o
      * colisiona con una celda ya ocupada.
      *
      * @param piece La pieza que se va a verificar para colisiones.
@@ -116,7 +120,8 @@ public final class Board {
                     int boardY = piece.getY() + y;
 
                     // Comprueba colisión en los límites o con celdas ocupadas
-                    if ((boardX < 0 || boardX >= width) || (boardY < 0 || boardY >= height) || grid[boardY][boardX]) {
+                    if ((boardX < 0 || boardX >= width) ||
+                        (boardY < 0 || boardY >= height) || grid[boardY][boardX]) {
                         return true;
                     }
                 }
@@ -127,7 +132,7 @@ public final class Board {
 
     /**
      * Bloquea la pieza actual en el tablero, es decir, la fija en su posición.
-     * 
+     *
      * @param piece La pieza que se va a bloquear.
      */
     public void lockPiece(final Piece piece) {
@@ -157,7 +162,7 @@ public final class Board {
 
     /**
      * Método auxiliar para limpiar una línea específica.
-     * 
+     *
      * @param y La posición Y que se limpiará.
      */
     public void clearLine(final int y) {
@@ -168,7 +173,7 @@ public final class Board {
 
     /**
      * Método auxiliar para desplazar las líneas hacia abajo.
-     * 
+     *
      * @param startY La posición Y desde la que comienza
      */
     private void shiftLinesDown(final int startY) {
