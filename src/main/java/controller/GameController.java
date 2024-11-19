@@ -20,7 +20,7 @@ public final class GameController {
      * @return Devuelve la pieza actualmente en juego.
      * */
     public Piece getCurrentPiece() {
-    	return this.currentPiece;
+        return this.currentPiece;
     }
 
     /** Indica si el juego ha terminado.*/
@@ -31,7 +31,7 @@ public final class GameController {
      *
      * */
     public boolean getIsGameOver() {
-    	return this.isGameOver;
+        return this.isGameOver;
     }
 
     /**
@@ -75,7 +75,7 @@ public final class GameController {
      */
     public boolean movePieceDown() {
         if (isGameOver) {
-        	return false;
+            return false;
         }
 
         currentPiece.move(0, 1);
