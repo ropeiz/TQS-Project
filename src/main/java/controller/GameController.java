@@ -43,8 +43,8 @@ public final class GameController {
      *
      * @param board El tablero en el que se jugará el juego.
      */
-    public void GameController(final Board board) {
-        this.board = board;
+    public GameController(final Board newBoard) {
+        this.board = newBoard;
         this.isGameOver = false;
         spawnNewPiece();
     }
