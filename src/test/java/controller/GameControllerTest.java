@@ -17,7 +17,7 @@ public class GameControllerTest {
     public void setUp() {
         board = new Board(10, 20);  // Tablero de 10x20
         gameController = new GameController(board);
-        piece = gameController.currentPiece;
+        piece = gameController.getCurrentPiece();
     }
 
     /**

@@ -9,7 +9,6 @@ import java.util.Scanner;
  * Contiene el bucle de juego que actualiza y procesa los movimientos.
  */
 public class TetrisGame {
-
 	/**El ancho del tablero de juego.*/
 	private static final int BOARD_WIDTH = 10;
 
