@@ -41,7 +41,7 @@ public final class GameController {
      * y establece el estado del juego como activo.
      * También genera una nueva pieza para comenzar el juego.
      *
-     * @param board El tablero en el que se jugará el juego.
+     * @param newBoard El tablero en el que se jugará el juego.
      */
     public GameController(final Board newBoard) {
         this.board = newBoard;

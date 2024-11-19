@@ -15,7 +15,7 @@ public class GameControllerTest {
 
     @Before
     public void setUp() {
-        board = new Board(10, 20);  // Tablero de 10x20
+        board = new Board(10, 20); // Tablero de 10x20
         gameController = new GameController(board);
         piece = gameController.getCurrentPiece();
     }
@@ -31,8 +31,8 @@ public class GameControllerTest {
     }
 
     /**
-     * Test: Verifica que el movimiento hacia abajo de la pieza funcione correctamente.
-     * Caja Negra: Partición equivalente - Movimiento hacia abajo.
+     * Test: Verifica que el movimiento hacia abajo de la pieza funcione
+     * correctamente. Caja Negra: Partición equivalente - Movimiento hacia abajo.
      * Caja Blanca: Cobertura de declaración en el método movePieceDown.
      */
     @Test
@@ -42,10 +42,9 @@ public class GameControllerTest {
         assertEquals(1, piece.getY());
     }
 
-
     /**
-     * Test: Verifica que el movimiento a la izquierda de la pieza funcione correctamente.
-     * Caja Negra: Partición equivalente - Movimiento a la izquierda.
+     * Test: Verifica que el movimiento a la izquierda de la pieza funcione
+     * correctamente. Caja Negra: Partición equivalente - Movimiento a la izquierda.
      */
     @Test
     public void testMovePieceLeft() {
@@ -54,8 +53,8 @@ public class GameControllerTest {
     }
 
     /**
-     * Test: Verifica que el movimiento a la izquierda se detenga en el borde.
-     * Caja Negra: Caso límite - Movimiento hacia el borde izquierdo.
+     * Test: Verifica que el movimiento a la izquierda se detenga en el borde. Caja
+     * Negra: Caso límite - Movimiento hacia el borde izquierdo.
      */
     @Test
     public void testMovePieceLeftBoundary() {
@@ -66,8 +65,8 @@ public class GameControllerTest {
     }
 
     /**
-     * Test: Verifica que el movimiento a la derecha de la pieza funcione correctamente.
-     * Caja Negra: Partición equivalente - Movimiento a la derecha.
+     * Test: Verifica que el movimiento a la derecha de la pieza funcione
+     * correctamente. Caja Negra: Partición equivalente - Movimiento a la derecha.
      */
     @Test
     public void testMovePieceRight() {
@@ -76,8 +75,8 @@ public class GameControllerTest {
     }
 
     /**
-     * Test: Verifica que el movimiento a la derecha se detenga en el borde.
-     * Caja Negra: Caso límite - Movimiento hacia el borde derecho.
+     * Test: Verifica que el movimiento a la derecha se detenga en el borde. Caja
+     * Negra: Caso límite - Movimiento hacia el borde derecho.
      */
     @Test
     public void testMovePieceRightBoundary() {
@@ -88,38 +87,33 @@ public class GameControllerTest {
     }
 
     /**
-     * Test: Verifica que el método `rotatePiece` funcione y revierta la rotación si hay una colisión.
-     * Caja Blanca: Cobertura de caminos - Rotación y deshacer rotación.
-     
-    @Test
-    public void testRotatePieceWithCollision() {
-    	boolean[][] shape = {
-    	        { false, true, false },
-    	        { true, true, true }
-    	    };
-        piece = Mockito.spy(new Piece(shape)); 
-        
-        gameController.setPiece(piece); 
-        Mockito.doReturn(true).when(board).checkCollision(piece);
-
-        gameController.rotatePiece();
-
-        Mockito.verify(piece).rotateClockwise();
-        Mockito.verify(piece).rotateCounterClockwise();
-    }
-*/
+     * Test: Verifica que el método `rotatePiece` funcione y revierta la rotación si
+     * hay una colisión. Caja Blanca: Cobertura de caminos - Rotación y deshacer
+     * rotación.
+     * 
+     * @Test public void testRotatePieceWithCollision() { boolean[][] shape = { {
+     *       false, true, false }, { true, true, true } }; piece = Mockito.spy(new
+     *       Piece(shape));
+     * 
+     *       gameController.setPiece(piece);
+     *       Mockito.doReturn(true).when(board).checkCollision(piece);
+     * 
+     *       gameController.rotatePiece();
+     * 
+     *       Mockito.verify(piece).rotateClockwise();
+     *       Mockito.verify(piece).rotateCounterClockwise(); }
+     */
 
     /**
      * Test: Verifica que el juego termine si no hay espacio para una nueva pieza.
-     * Design by Contract - Postcondición: El juego debe estar en estado de Game Over.
-     
-    @Test
-    public void testGameOverWhenNoSpaceForNewPiece() {
-        board = Mockito.mock(Board.class);
-        Mockito.when(board.checkCollision(Mockito.any())).thenReturn(true);
-        gameController = new GameController(board);
-
-        assertTrue(gameController.isGameOver());
-    }
-    */
+     * Design by Contract - Postcondición: El juego debe estar en estado de Game
+     * Over.
+     * 
+     * @Test public void testGameOverWhenNoSpaceForNewPiece() { board =
+     *       Mockito.mock(Board.class);
+     *       Mockito.when(board.checkCollision(Mockito.any())).thenReturn(true);
+     *       gameController = new GameController(board);
+     * 
+     *       assertTrue(gameController.isGameOver()); }
+     */
 }
