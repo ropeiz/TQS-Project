@@ -6,7 +6,7 @@ import java.util.Arrays;
  * Representa el tablero de Tetris.
  */
 public class Board {
-	/** Matriz que representa las celdas ocupadas y vacías del tablero. */
+    /** Matriz que representa las celdas ocupadas y vacías del tablero. */
     private boolean[][] grid;
 
     /** Ancho del tablero de juego. */
@@ -81,7 +81,7 @@ public class Board {
                     int boardX = pieceX + col;
                     int boardY = pieceY + row;
 
-                    if (boardX < 0 || boardX >= width 
+                    if (boardX < 0 || boardX >= width
                     	|| boardY < 0 || boardY >= height) {
                         return true; // Fuera de límites
                     }
@@ -153,20 +153,23 @@ public class Board {
     * @param newRow La nueva fila que se agrega al tablero.
     * @return Un nuevo tablero con newRow como la primera fila.
     */
-    private boolean[][] prependRow(final boolean[][] grid, final boolean[] newRow) {
-        boolean[][] newGrid = new boolean[grid.length + 1][];
-        newGrid[0] = newRow;
-        System.arraycopy(grid, 0, newGrid, 1, grid.length);
-        return newGrid;
+    private boolean[][] prependRow(final boolean[][] newGrid, 
+    	final boolean[] newRow) {
+
+        boolean[][] Grid = new boolean[grid.length + 1][];
+        Grid[0] = newRow;
+        System.arraycopy(grid, 0, Grid, 1, grid.length);
+        return Grid;
     }
 
     /**
-    * Marca una celda como ocupada en las coordenadas especificadas.*
+    * Marca una celda como ocupada en las coordenadas especificadas.
     * @param x La coordenada x de la celda a ocupar.
     * @param y La coordenada y de la celda a ocupar.*/
     public void occupyCell(final int x, final int y) {
         if (y >= 0 && y < height && x >= 0 && x < width) {
-            grid[y][x] = true;}
+            grid[y][x] = true;
+            }
         }
 
     /**
@@ -194,9 +197,9 @@ public class Board {
                     int renderX = pieceX + col;
                     int renderY = pieceY + row;
 
-                    if (renderX >= 0 && renderX < width 
+                    if (renderX >= 0 && renderX < width
                     && renderY >= 0 && renderY < height) {
-                        rendered[renderY][renderX] = 'O'; 
+                        rendered[renderY][renderX] = 'O';
                     }
                 }
             }
