@@ -82,7 +82,7 @@ public class Board {
                     int boardY = pieceY + row;
 
                     if (boardX < 0 || boardX >= width
-                    	|| boardY < 0 || boardY >= height) {
+                        || boardY < 0 || boardY >= height) {
                         return true; // Fuera de límites
                     }
                     if (boardY >= 0 && grid[boardY][boardX]) {
@@ -149,17 +149,17 @@ public class Board {
 
     /**
     * Crea un nuevo tablero que contiene una nueva fila al inicio.
-    * @param grid tablero original.
+    * @param newGrid tablero original.
     * @param newRow La nueva fila que se agrega al tablero.
     * @return Un nuevo tablero con newRow como la primera fila.
     */
-    private boolean[][] prependRow(final boolean[][] newGrid, 
+    private boolean[][] prependRow(final boolean[][] newGrid,
     	final boolean[] newRow) {
 
-        boolean[][] Grid = new boolean[grid.length + 1][];
-        Grid[0] = newRow;
-        System.arraycopy(grid, 0, Grid, 1, grid.length);
-        return Grid;
+        boolean[][] grid2 = new boolean[grid.length + 1][];
+        grid2[0] = newRow;
+        System.arraycopy(grid, 0, grid2, 1, grid.length);
+        return grid2;
     }
 
     /**
@@ -176,7 +176,7 @@ public class Board {
      * Renderiza el tablero actual junto con la posición de la pieza dada.
      * La pieza solo se renderiza si está dentro de los límites del tablero.
      * @param piece La pieza que se desea renderizar sobre el tablero.
-     * @return Un arreglo bidimensional de caracteres que representa 
+     * @return Un arreglo bidimensional de caracteres que representa
      * el estado actual del tablero con la pieza añadida.
      */
     public char[][] renderWithPiece(final Piece piece) {
