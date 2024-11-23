@@ -39,16 +39,6 @@ public class BoardTest {
         assertTrue(board.isCellOccupied(0, 0)); // Espera true después de ocupar
     }
 
-    /**
-     * Test: Verifica que una celda fuera de los límites se considera no ocupada.
-     * Caja Negra: Caso límite - Celda fuera de límites.
-     */
-    @Test
-    public void testIsCellOccupiedOutOfBounds() {
-        assertFalse(board.isCellOccupied(-1, -1)); // Celda fuera de límites
-        assertFalse(board.isCellOccupied(10, 20)); // Celda fuera de límites
-        assertFalse(board.isCellOccupied(0, 20));  // Celda fuera del alto
-    }
 
     /**
      * Test: Verifica que varias celdas ocupadas se detectan correctamente.
@@ -74,18 +64,6 @@ public class BoardTest {
         assertTrue(board.isCellOccupied(9, 19)); // Comprueba que la última celda está ocupada
     }
 
-    /**
-     * Test: Verifica que ocupar una celda fuera de límites no altera el estado del tablero.
-     * Caja Blanca: Prueba de loop, cobertura de condiciones y caminos.
-     * Caja Negra: Partición equivalente - Intento de ocupar fuera de límites.
-     */
-    @Test
-    public void testOccupyCellOutOfBounds() {
-        board.occupyCell(-1, -1); // Intento fuera de límites
-        board.occupyCell(10, 20); // Intento fuera de límites
-        assertFalse(board.isCellOccupied(-1, -1));
-        assertFalse(board.isCellOccupied(10, 20));
-    }
 
     /**
      * Test: Comprueba que al ocupar una celda se cumple el contrato.

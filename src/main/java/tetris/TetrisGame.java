@@ -1,4 +1,4 @@
-
+package tetris;
 // src/TetrisGame.java
 import controller.GameController;
 import model.Board;
@@ -53,7 +53,7 @@ public class TetrisGame {
         + "w = Rotar, q = Salir");
 
         while (running) {
-            view.displayBoard(board); // Muestra el tablero
+            view.displayBoard(board, controller.getCurrentPiece());
 
             System.out.print("Introduce movimiento: ");
             String input = scanner.nextLine();

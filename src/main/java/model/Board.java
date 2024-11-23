@@ -1,14 +1,19 @@
 package model;
 
-public final class Board {
+import java.util.Arrays;
+
+/**
+ * Representa el tablero de Tetris.
+ */
+public class Board {
+    /** Matriz que representa las celdas ocupadas y vacías del tablero. */
+    private boolean[][] grid;
+
     /** Ancho del tablero de juego. */
     private int width;
 
     /** Altura del tablero de juego. */
     private int height;
-
-    /** Matriz que representa las celdas ocupadas y vacías del tablero. */
-    private boolean[][] grid;
 
     /**
      * Constructor de la clase Board.
@@ -22,14 +27,14 @@ public final class Board {
     public Board(final int newWidth, final int newHeight) {
         this.width = newWidth;
         this.height = newHeight;
-        grid = new boolean[height][width]; // inicialización del tablero
+        this.grid = new boolean[height][width];
     }
 
     /**
-     * Devuelve el ancho del tablero.
-     *
-     * @return El ancho del tablero.
-     */
+    * Devuelve el ancho del tablero.
+    *
+    * @return El ancho del tablero.
+    */
     public int getWidth() {
         return this.width;
     }
@@ -44,60 +49,13 @@ public final class Board {
     }
 
     /**
-     * Verifica si una celda está ocupada en las coordenadas especificadas.
-     *
-     * @param x La coordenada x de la celda a verificar.
-     * @param y La coordenada y de la celda a verificar.
-     * @return true si la celda está ocupada,
-     * false si está libre o fuera de rango.
+     * Verifica si una celda está ocupada.
+     * @param x Coordenada x de la celda.
+     * @param y Coordenada y de la celda.
+     * @return true si la celda está ocupada; false de lo contrario.
      */
     public boolean isCellOccupied(final int x, final int y) {
-        if (x < 0 || x >= width || y < 0 || y >= height) {
-            return false; // fuera de rango
-        }
         return grid[y][x];
-    }
-
-    /**
-     * Marca una celda como ocupada en las coordenadas especificadas.
-     *
-     * @param x La coordenada x de la celda a ocupar.
-     * @param y La coordenada y de la celda a ocupar.
-     */
-    public void occupyCell(final int x, final int y) {
-        if (y >= 0 && y < height && x >= 0 && x < width) {
-            grid[y][x] = true;
-        }
-    }
-
-    /**
-     * Método para marcar una celda como vacía.
-     *
-     * @param x La posición X de la casilla
-     * @param y La posición Y de la casilla
-     */
-    public void clearCell(final int x, final int y) {
-        if (!isOutOfBounds(x, y)) {
-            grid[y][x] = false;
-        }
-    }
-
-    /** @return Devuelve la cuadrícula completa (útil para la vista). */
-    public boolean[][] getGrid() {
-        return grid;
-    }
-
-    /** @return Devuelve la cantidad de líneas completas. */
-    public int clearFullLines() {
-        int linesCleared = 0;
-        for (int y = 0; y < height; y++) {
-            if (isLineFull(y)) {
-                clearLine(y);
-                linesCleared++;
-                shiftLinesDown(y);
-            }
-        }
-        return linesCleared; // Cantidad de líneas limpiadas
     }
 
     /**
@@ -113,17 +71,22 @@ public final class Board {
      * @return true si hay una colisión, false si no hay colisión.
      */
     public boolean checkCollision(final Piece piece) {
-        for (int y = 0; y < piece.getShape().length; y++) {
-            for (int x = 0; x < piece.getShape()[y].length; x++) {
-                if (piece.getShape()[y][x]) {
-                    int boardX = piece.getX() + x;
-                    int boardY = piece.getY() + y;
+        boolean[][] shape = piece.getShape();
+        int pieceX = piece.getX();
+        int pieceY = piece.getY();
 
-                    // Comprueba colisión en los límites o con celdas ocupadas
-                    if ((boardX < 0 || boardX >= width)
-                        || (boardY < 0 || boardY >= height)
-                        || grid[boardY][boardX]) {
-                        return true;
+        for (int row = 0; row < shape.length; row++) {
+            for (int col = 0; col < shape[row].length; col++) {
+                if (shape[row][col]) {
+                    int boardX = pieceX + col;
+                    int boardY = pieceY + row;
+
+                    if (boardX < 0 || boardX >= width
+                        || boardY < 0 || boardY >= height) {
+                        return true; // Fuera de límites
+                    }
+                    if (boardY >= 0 && grid[boardY][boardX]) {
+                        return true; // Colisión con celdas ocupadas
                     }
                 }
             }
@@ -132,29 +95,52 @@ public final class Board {
     }
 
     /**
-     * Bloquea la pieza actual en el tablero, es decir, la fija en su posición.
-     *
-     * @param piece La pieza que se va a bloquear.
-     */
+    * Bloquea la pieza actual en el tablero, es decir, la fija en su posición.
+    *
+    * @param piece La pieza que se va a bloquear.
+    */
     public void lockPiece(final Piece piece) {
-        for (int y = 0; y < piece.getShape().length; y++) {
-            for (int x = 0; x < piece.getShape()[y].length; x++) {
-                if (piece.getShape()[y][x]) {
-                    int boardX = piece.getX() + x;
-                    int boardY = piece.getY() + y;
-                    grid[boardY][boardX] = true; // Marca la celda como ocupada
+        boolean[][] shape = piece.getShape();
+        int pieceX = piece.getX();
+        int pieceY = piece.getY();
+
+        for (int row = 0; row < shape.length; row++) {
+            for (int col = 0; col < shape[row].length; col++) {
+                if (shape[row][col]) {
+                    grid[pieceY + row][pieceX + col] = true;
                 }
             }
         }
     }
 
+    /** Elimina las líneas completas. */
+    public void clearFullLines() {
+        grid = Arrays.stream(grid)
+            .filter(row -> !isFull(row))
+            .toArray(boolean[][]::new);
+
+        // Añadir nuevas filas vacías en la parte superior
+        while (grid.length < height) {
+            grid = prependRow(grid, new boolean[width]);
+        }
+    }
+
+
     /**
-     * @param y La posición Y de la línea que se comprueba.
-     * @return Devuelve si una línea está completamente llena.
-     */
-    private boolean isLineFull(final int y) {
+    Método auxiliar para limpiar una línea específica.
+    @param y La posición Y que se limpiará.*/
+    public void clearLine(final int y) {
         for (int x = 0; x < width; x++) {
-            if (!grid[y][x]) { // Si alguna celda está vacía
+            grid[y][x] = false; }
+        }
+
+    /**
+    * @param row La línea que se comprueba.
+    * @return Devuelve si una línea está completamente llena.
+    */
+    private boolean isFull(final boolean[] row) {
+        for (boolean cell : row) {
+            if (!cell) {
                 return false;
             }
         }
@@ -162,38 +148,63 @@ public final class Board {
     }
 
     /**
-     * Método auxiliar para limpiar una línea específica.
-     *
-     * @param y La posición Y que se limpiará.
-     */
-    public void clearLine(final int y) {
-        for (int x = 0; x < width; x++) {
-            grid[y][x] = false;
-        }
+    * Crea un nuevo tablero que contiene una nueva fila al inicio.
+    * @param newGrid tablero original.
+    * @param newRow La nueva fila que se agrega al tablero.
+    * @return Un nuevo tablero con newRow como la primera fila.
+    */
+    private boolean[][] prependRow(final boolean[][] newGrid,
+        final boolean[] newRow) {
+
+        boolean[][] grid2 = new boolean[grid.length + 1][];
+        grid2[0] = newRow;
+        System.arraycopy(grid, 0, grid2, 1, grid.length);
+        return grid2;
     }
 
     /**
-     * Método auxiliar para desplazar las líneas hacia abajo.
-     *
-     * @param startY La posición Y desde la que comienza
-     */
-    private void shiftLinesDown(final int startY) {
-        for (int y = startY; y > 0; y--) {
-            System.arraycopy(grid[y - 1], 0, grid[y], 0, width);
+    * Marca una celda como ocupada en las coordenadas especificadas.
+    * @param x La coordenada x de la celda a ocupar.
+    * @param y La coordenada y de la celda a ocupar.*/
+    public void occupyCell(final int x, final int y) {
+        if (y >= 0 && y < height && x >= 0 && x < width) {
+            grid[y][x] = true;
+            }
         }
-        // Limpiar la línea superior después de desplazarlas hacia abajo.
-        for (int x = 0; x < width; x++) {
-            grid[0][x] = false;
-        }
-    }
 
     /**
-     * @param x La posición X a comprobar
-     * @param y La posición Y a comprobar
-     * @return Devuelve si una coordenada está fuera de los límites.
+     * Renderiza el tablero actual junto con la posición de la pieza dada.
+     * La pieza solo se renderiza si está dentro de los límites del tablero.
+     * @param piece La pieza que se desea renderizar sobre el tablero.
+     * @return Un arreglo bidimensional de caracteres que representa
+     * el estado actual del tablero con la pieza añadida.
      */
-    private boolean isOutOfBounds(final int x, final int y) {
-        return x < 0 || x >= width || y < 0 || y >= height;
-    }
+    public char[][] renderWithPiece(final Piece piece) {
+        char[][] rendered = new char[height][width];
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                rendered[y][x] = grid[y][x] ? 'X' : ' ';
+            }
+        }
 
+        boolean[][] shape = piece.getShape();
+        int pieceX = piece.getX();
+        int pieceY = piece.getY();
+
+        for (int row = 0; row < shape.length; row++) {
+            for (int col = 0; col < shape[row].length; col++) {
+                if (shape[row][col]) {
+                    int renderX = pieceX + col;
+                    int renderY = pieceY + row;
+
+                    if (renderX >= 0 && renderX < width
+                    && renderY >= 0 && renderY < height) {
+                        rendered[renderY][renderX] = 'O';
+                    }
+                }
+            }
+        }
+
+        return rendered;
+    }
 }
