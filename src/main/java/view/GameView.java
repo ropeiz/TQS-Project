@@ -5,6 +5,11 @@ import model.Piece;
 
 public class GameView {
 
+	/**
+	 * Displays the game board with the current piece.
+	 * @param board the game board to display
+	 * @param currentPiece the current piece to display on the board
+	 */
     public void displayBoard(final Board board, final Piece currentPiece) {
         char[][] renderedBoard = board.renderWithPiece(currentPiece);
         int width = board.getWidth();

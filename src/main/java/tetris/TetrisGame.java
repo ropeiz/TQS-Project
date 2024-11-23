@@ -53,7 +53,7 @@ public class TetrisGame {
         + "w = Rotar, q = Salir");
 
         while (running) {
-        	view.displayBoard(board, controller.getCurrentPiece()); // Muestra el tablero
+            view.displayBoard(board, controller.getCurrentPiece());
 
             System.out.print("Introduce movimiento: ");
             String input = scanner.nextLine();

@@ -6,16 +6,15 @@ import java.util.Arrays;
  * Representa el tablero de Tetris.
  */
 public class Board {
-	
 	/** Matriz que representa las celdas ocupadas y vacías del tablero. */
     private boolean[][] grid;
-    
+
     /** Ancho del tablero de juego. */
     private int width;
-    
+
     /** Altura del tablero de juego. */
     private int height;
-    
+
     /**
      * Constructor de la clase Board.
      *
@@ -82,7 +81,8 @@ public class Board {
                     int boardX = pieceX + col;
                     int boardY = pieceY + row;
 
-                    if (boardX < 0 || boardX >= width || boardY < 0 || boardY >= height) {
+                    if (boardX < 0 || boardX >= width 
+                    	|| boardY < 0 || boardY >= height) {
                         return true; // Fuera de límites
                     }
                     if (boardY >= 0 && grid[boardY][boardX]) {
@@ -113,7 +113,7 @@ public class Board {
         }
     }
 
-    /** @return Devuelve la cantidad de líneas completas. */
+    /** Elimina las líneas completas. */
     public void clearFullLines() {
         grid = Arrays.stream(grid)
             .filter(row -> !isFull(row))
@@ -127,17 +127,18 @@ public class Board {
 
 
     /**
-    Método auxiliar para limpiar una línea específica.*
+    Método auxiliar para limpiar una línea específica.
     @param y La posición Y que se limpiará.*/
     public void clearLine(final int y) {
         for (int x = 0; x < width; x++) {
-            grid[y][x] = false;}
+            grid[y][x] = false; }
         }
+
     /**
-    * @param y La posición Y de la línea que se comprueba.
+    * @param row La línea que se comprueba.
     * @return Devuelve si una línea está completamente llena.
     */
-    private boolean isFull(boolean[] row) {
+    private boolean isFull(final boolean[] row) {
         for (boolean cell : row) {
             if (!cell) {
                 return false;
@@ -146,31 +147,36 @@ public class Board {
         return true;
     }
 
-    
-    private boolean[][] prependRow(boolean[][] grid, boolean[] newRow) {
+    /**
+    * Crea un nuevo tablero que contiene una nueva fila al inicio.
+    * @param grid tablero original.
+    * @param newRow La nueva fila que se agrega al tablero.
+    * @return Un nuevo tablero con newRow como la primera fila.
+    */
+    private boolean[][] prependRow(final boolean[][] grid, final boolean[] newRow) {
         boolean[][] newGrid = new boolean[grid.length + 1][];
         newGrid[0] = newRow;
         System.arraycopy(grid, 0, newGrid, 1, grid.length);
         return newGrid;
     }
-    
+
     /**
-     * Marca una celda como ocupada.
-     * @param x Coordenada x de la celda.
-     * @param y Coordenada y de la celda.
-     */
-    /**
-    
-    Marca una celda como ocupada en las coordenadas especificadas.*
-    @param x La coordenada x de la celda a ocupar.
-    @param y La coordenada y de la celda a ocupar.*/
+    * Marca una celda como ocupada en las coordenadas especificadas.*
+    * @param x La coordenada x de la celda a ocupar.
+    * @param y La coordenada y de la celda a ocupar.*/
     public void occupyCell(final int x, final int y) {
         if (y >= 0 && y < height && x >= 0 && x < width) {
             grid[y][x] = true;}
         }
 
-    // Combina temporalmente la pieza actual con el tablero
-    public char[][] renderWithPiece(Piece piece) {
+    /**
+     * Renderiza el tablero actual junto con la posición de la pieza dada.
+     * La pieza solo se renderiza si está dentro de los límites del tablero.
+     * @param piece La pieza que se desea renderizar sobre el tablero.
+     * @return Un arreglo bidimensional de caracteres que representa 
+     * el estado actual del tablero con la pieza añadida.
+     */
+    public char[][] renderWithPiece(final Piece piece) {
         char[][] rendered = new char[height][width];
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
@@ -188,8 +194,9 @@ public class Board {
                     int renderX = pieceX + col;
                     int renderY = pieceY + row;
 
-                    if (renderX >= 0 && renderX < width && renderY >= 0 && renderY < height) {
-                        rendered[renderY][renderX] = 'O'; // Representar la pieza actual con 'O'
+                    if (renderX >= 0 && renderX < width 
+                    && renderY >= 0 && renderY < height) {
+                        rendered[renderY][renderX] = 'O'; 
                     }
                 }
             }
