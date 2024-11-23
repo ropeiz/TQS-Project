@@ -154,7 +154,7 @@ public class Board {
     * @return Un nuevo tablero con newRow como la primera fila.
     */
     private boolean[][] prependRow(final boolean[][] newGrid,
-    	final boolean[] newRow) {
+        final boolean[] newRow) {
 
         boolean[][] grid2 = new boolean[grid.length + 1][];
         grid2[0] = newRow;
