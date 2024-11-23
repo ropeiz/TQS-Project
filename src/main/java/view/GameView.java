@@ -1,36 +1,25 @@
-// src/view/GameView.java
 package view;
 
 import model.Board;
+import model.Piece;
 
-/**
- * Clase GameView.
- * Representa el estado actual del tablero en la consola.
- */
 public class GameView {
 
-    /**
-     * Muestra el tablero en la consola.
-     * @param board El tablero del juego a mostrar.
-     */
-    public void displayBoard(final Board board) {
+    public void displayBoard(final Board board, final Piece currentPiece) {
+        char[][] renderedBoard = board.renderWithPiece(currentPiece);
         int width = board.getWidth();
         int height = board.getHeight();
 
-        // Dibuja el borde superior
         System.out.println("+" + "-".repeat(width) + "+");
 
-        // Dibuja el tablero fila por fila
         for (int y = 0; y < height; y++) {
-            System.out.print("|"); // Borde izquierdo
+            System.out.print("|");
             for (int x = 0; x < width; x++) {
-                // Muestra una "X" para celdas ocupadas
-                System.out.print(board.isCellOccupied(x, y) ? "X" : " ");
+                System.out.print(renderedBoard[y][x]);
             }
-            System.out.println("|"); // Borde derecho
+            System.out.println("|");
         }
 
-        // Dibuja el borde inferior
         System.out.println("+" + "-".repeat(width) + "+");
     }
 }
