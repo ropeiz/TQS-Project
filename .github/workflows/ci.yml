@@ -20,7 +20,7 @@ jobs:
         java-version: '11'  # Cambia la versión según tus necesidades
 
     - name: Build and Test with Maven
-      run: mvn clean install
+      run: mvn clean test
 
     - name: Run Code Quality Checks
       run: mvn checkstyle:check

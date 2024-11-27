@@ -23,20 +23,24 @@ public class BoardTest {
     /**
      * Test: Verifica que una celda esté desocupada por defecto.
      * Caja Negra: Partición equivalente - Celda no ocupada.
+     * Caja Blanca: Cobertura de sentencias en la función 'isCellOccupied'.
      */
     @Test
     public void testIsCellOccupiedInitialFalse() {
-        assertFalse(board.isCellOccupied(0, 0)); // Espera false para una celda inicialmente vacía
+    	// Espera false para una celda inicialmente vacía
+        assertFalse(board.isCellOccupied(0, 0));
     }
 
     /**
      * Test: Verifica que una celda se marca como ocupada.
      * Caja Negra: Partición equivalente - Celda ocupada.
+     * Caja Blanca: Cobertura de sentencias en la función 'isCellOccupied'.
      */
     @Test
     public void testIsCellOccupiedAfterOccupyCell() {
-        board.occupyCell(0, 0);
-        assertTrue(board.isCellOccupied(0, 0)); // Espera true después de ocupar
+    	board.occupyCell(0, 0);
+        // Espera true después de ocupar
+        assertTrue(board.isCellOccupied(0, 0));
     }
 
 
@@ -100,12 +104,20 @@ public class BoardTest {
         board.occupyCell(5, 5);
         assertTrue(board.isCellOccupied(5, 5));  // Decisión: celda ocupada
     }
-    
+
+    /**
+     * Test para asegurar que el constructor y getWidth funcionan correctamente.
+     * Caja Blanca: Cobertura de sentencias en constructor y en 'getWidth()'.
+     */
     @Test
     public void testGetWidth() {
         assertEquals(10, board.getWidth());
     }
-    
+
+    /**
+     * Test para asegurar que el constructor y getHeight funcionan correctamente.
+     * Caja Blanca: Cobertura de sentencias en constructor y en 'getHeight()'.
+     */
     @Test
     public void testGetHeight() {
         assertEquals(20, board.getHeight());
