@@ -53,6 +53,10 @@ public class PieceTest {
         piece.move(-1, 1);
         assertEquals(-1, piece.getX()); // Permite valores negativos
         assertEquals(1, piece.getY());
+        
+        piece.move(-1, -1);
+        assertEquals(-1, piece.getX());
+        assertEquals(1, piece.getY());
     }
 
     /**
