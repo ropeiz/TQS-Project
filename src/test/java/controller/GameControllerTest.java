@@ -108,12 +108,12 @@ public class GameControllerTest {
      * Test: Verifica que el juego termine si no hay espacio para una nueva pieza.
      * Design by Contract - Postcondición: El juego debe estar en estado de Game
      * Over.
-     *
-     * @Test public void testGameOverWhenNoSpaceForNewPiece() { board =
-     *       Mockito.mock(Board.class);
-     *       Mockito.when(board.checkCollision(Mockito.any())).thenReturn(true);
-     *       gameController = new GameController(board);
-     *
-     *       assertTrue(gameController.isGameOver()); }
      */
+      @Test public void testGameOverWhenNoSpaceForNewPiece() { 
+    	  	board = Mockito.mock(Board.class);
+            Mockito.when(board.checkCollision(Mockito.any())).thenReturn(true);
+            gameController = new GameController(board);
+            assertTrue(gameController.isGameOver()); 
+            }
+     
 }

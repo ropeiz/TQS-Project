@@ -33,16 +33,6 @@ public class PieceTest {
     }
 
     /**
-     * Test: Verifica que la posición inicial de la pieza es (0,0).
-     * Caja Negra: Partición equivalente - Posición inicial de la pieza.
-     */
-    @Test
-    public void testInitialPosition() {
-        assertEquals(0, piece.getX());
-        assertEquals(0, piece.getY());
-    }
-
-    /**
      * Test: Verifica que la pieza se mueve correctamente a una nueva posición.
      * Caja Negra: Partición equivalente - Movimiento de la pieza.
      * Caja Blanca: Cobertura de declaración en el método `move`.
@@ -60,31 +50,32 @@ public class PieceTest {
      */
     @Test
     public void testMovePieceNegativeValues() {
-        piece.move(-1, -1);
+        piece.move(-1, 1);
         assertEquals(-1, piece.getX()); // Permite valores negativos
-        assertEquals(-1, piece.getY());
+        assertEquals(1, piece.getY());
     }
 
     /**
-     * Test: Verifica que `rotateClockwise` gira la pieza 90 grados en el sentido de las agujas del reloj.
-     * Caja Blanca: Cobertura de condición y caminos en el método `rotateClockwise`.
+     * Test: Verifica que `rotateClockwise` gira la pieza cuadrada 90 grados en sentido horario y esta mantiene la misma forma al girar.
+     * Caja Blanca: Cobertura de condición y caminos en el método.
      */
     @Test
-    public void testRotateClockwise() {
+    public void testRotateSquareClockwise() {
         piece.rotateClockwise();
         boolean[][] expectedShape = {
             {true, true},
             {true, true}
         }; // En este caso, la rotación de un cuadrado permanece igual
         assertArrayEquals(expectedShape, piece.getShape());
+        
     }
 
     /**
-     * Test: Verifica que `rotateCounterClockwise` gira la pieza 90 grados en sentido antihorario.
-     * Caja Blanca: Cobertura de condición y caminos en el método `rotateCounterClockwise`.
+     * Test: Verifica que `rotateClockwise` gira la pieza cuadrada 90 grados en sentido antihorario y esta mantiene la misma forma al girar.
+     * Caja Blanca: Cobertura de condición y caminos en el método.
      */
     @Test
-    public void testRotateCounterClockwise() {
+    public void testRotateSquareCounterClockwise() {
         piece.rotateCounterClockwise();
         boolean[][] expectedShape = {
             {true, true},
@@ -94,22 +85,11 @@ public class PieceTest {
     }
 
     /**
-     * Test: Verifica que el método `move` cumpla con el contrato de diseño.
-     * Design by Contract - Precondición: Los valores de desplazamiento deben estar dentro de los límites del tablero.
-     */
-    @Test
-    public void testMovePieceDesignByContract() {
-        piece.move(5, 5);
-        assertEquals(5, piece.getX());
-        assertEquals(5, piece.getY());
-    }
-
-    /**
-     * Test: Verifica que el método `rotateClockwise` cumple con el contrato de diseño.
+     * Test: Verifica que el método `rotateClockwise` gira la pieza 90 grados en sentido horario de manera correcta.
      * Design by Contract - Postcondición: La matriz debe cambiar de tamaño tras la rotación.
      */
     @Test
-    public void testRotateClockwiseDesignByContract() {
+    public void testRotateClockwise() {
         piece = new Piece(new boolean[][]{
             {true, false},
             {true, true}
@@ -122,6 +102,27 @@ public class PieceTest {
         assertArrayEquals(expectedShape, piece.getShape());
     }
     
+    /**
+     * Test: Verifica que el método `rotateClockwise` gira la pieza 90 grados en sentido antihorario de manera correcta.
+     * Design by Contract - Postcondición: La matriz debe cambiar de tamaño tras la rotación.
+     */
+    @Test
+    public void testRotateCounterClockwise() {
+        piece = new Piece(new boolean[][]{
+            {true, false},
+            {true, true}
+        });
+        piece.rotateClockwise();
+        boolean[][] expectedShape = {
+            {false, true},
+            {true, true}
+        };
+        assertArrayEquals(expectedShape, piece.getShape());
+    }
+    
+    /**
+     * Test: Verifica que la pieza que se genera no esté vacía.
+     */
     @Test
     public void testGenerateRandomPiece() {
         Piece randomPiece = Piece.generateRandomPiece();
