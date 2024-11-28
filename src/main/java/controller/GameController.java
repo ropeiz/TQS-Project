@@ -3,7 +3,7 @@ package controller;
 import model.Board;
 import model.Piece;
 
-public final class GameController {
+public class GameController {
 
     /** Representa el tablero en el que se juega.*/
     private Board board;
