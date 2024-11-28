@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * Clase que representa una pieza del juego Tetris.
  */
-public final class Piece {
+public class Piece {
     /** Matriz booleana que representa la forma de la pieza. */
     private boolean[][] shape;
 

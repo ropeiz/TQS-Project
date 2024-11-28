@@ -91,13 +91,16 @@ public class GameControllerTest {
      * hay una colisión. Caja Blanca: Cobertura de caminos - Rotación y deshacer
      * rotación.
      */
-      @Test public void testRotatePieceWithCollision() { boolean[][] shape = { {
-             false, true, false }, { true, true, true } }; piece = Mockito.spy(new
-             Piece(shape));
-      
+      @Test public void testRotatePieceWithCollision() { 
+    	     boolean[][] shape = { {
+             false, true, false }, 
+    	    { true, true, true } 
+             }; 
+    	     piece = Mockito.spy(new Piece(shape));
+    	     
              gameController.setPiece(piece);
              Mockito.doReturn(true).when(board).checkCollision(piece);
-      
+
              gameController.rotatePiece();
       
              Mockito.verify(piece).rotateClockwise();
