@@ -112,7 +112,7 @@ public class PieceTest {
             {true, false},
             {true, true}
         });
-        piece.rotateClockwise();
+        piece.rotateCounterClockwise();
         boolean[][] expectedShape = {
             {false, true},
             {true, true}

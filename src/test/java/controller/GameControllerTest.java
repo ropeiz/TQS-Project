@@ -90,19 +90,40 @@ public class GameControllerTest {
      * Test: Verifica que el método `rotatePiece` funcione y revierta la rotación si
      * hay una colisión. Caja Blanca: Cobertura de caminos - Rotación y deshacer
      * rotación.
-     *
-     * @Test public void testRotatePieceWithCollision() { boolean[][] shape = { {
-     *       false, true, false }, { true, true, true } }; piece = Mockito.spy(new
-     *       Piece(shape));
-     *
-     *       gameController.setPiece(piece);
-     *       Mockito.doReturn(true).when(board).checkCollision(piece);
-     *
-     *       gameController.rotatePiece();
-     *
-     *       Mockito.verify(piece).rotateClockwise();
-     *       Mockito.verify(piece).rotateCounterClockwise(); }
      */
+    @Test 
+    public void testRotatePieceWithCollision() { 
+        // Crea un mock de Board
+        Board mockBoard = Mockito.mock(Board.class);
+
+        // Crea un mock de Piece
+        Piece mockPiece = Mockito.mock(Piece.class);
+
+        // Crea la instancia de GameController con el mock del tablero
+        GameController gameController = new GameController(mockBoard);
+
+        // Configura el mock de Piece
+        boolean[][] shape = {
+            { false, true, false }, 
+            { true, true, true }
+        };
+        Mockito.when(mockPiece.getShape()).thenReturn(shape);
+
+        // Configura el tablero para simular una colisión
+        Mockito.doReturn(true).when(mockBoard).checkCollision(mockPiece);
+
+        // Establece la pieza actual como el mock de Piece
+        gameController.setPiece(mockPiece);
+
+        // Llama al método que deseas probar
+        gameController.rotatePiece();
+
+        // Verifica que los métodos correctos fueron llamados
+        Mockito.verify(mockPiece).rotateClockwise();
+        Mockito.verify(mockPiece).rotateCounterClockwise(); 
+    }
+
+
 
     /**
      * Test: Verifica que el juego termine si no hay espacio para una nueva pieza.

@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * Clase que representa una pieza del juego Tetris.
  */
-public final class Piece {
+public class Piece {
     /** Matriz booleana que representa la forma de la pieza. */
     private boolean[][] shape;
 
@@ -66,10 +66,10 @@ public final class Piece {
      * @param dy El cambio en la coordenada y.
      */
     public void move(final int dx, final int dy) {
-    	if (dy >= 0) {
+        if (dy >= 0) {
         this.x += dx;
         this.y += dy;
-    	}
+        }
     }
 
     /** Rotación de la pieza en el sentido de las agujas del reloj.*/
