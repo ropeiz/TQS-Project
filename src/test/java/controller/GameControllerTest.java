@@ -93,23 +93,27 @@ public class GameControllerTest {
      */
     @Test 
     public void testRotatePieceWithCollision() { 
-        // Crea el mock de Piece
+        // Crea un mock de Board
+        Board mockBoard = Mockito.mock(Board.class);
+
+        // Crea un mock de Piece
         Piece mockPiece = Mockito.mock(Piece.class);
 
-        // Configura los métodos del mock
+        // Crea la instancia de GameController con el mock del tablero
+        GameController gameController = new GameController(mockBoard);
+
+        // Configura el mock de Piece
         boolean[][] shape = {
             { false, true, false }, 
             { true, true, true }
         };
         Mockito.when(mockPiece.getShape()).thenReturn(shape);
 
-        // Crea el mock de Board y configúralo
-        Board board = Mockito.mock(Board.class);
-        gameController.setBoard(board);
-        gameController.setPiece(mockPiece);
+        // Configura el tablero para simular una colisión
+        Mockito.doReturn(true).when(mockBoard).checkCollision(mockPiece);
 
-        // Configura la colisión en el tablero
-        Mockito.doReturn(true).when(board).checkCollision(mockPiece);
+        // Establece la pieza actual como el mock de Piece
+        gameController.setPiece(mockPiece);
 
         // Llama al método que deseas probar
         gameController.rotatePiece();
@@ -118,6 +122,7 @@ public class GameControllerTest {
         Mockito.verify(mockPiece).rotateClockwise();
         Mockito.verify(mockPiece).rotateCounterClockwise(); 
     }
+
 
 
     /**
