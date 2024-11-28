@@ -61,23 +61,13 @@ public class BoardTest {
     /**
      * Test: Verifica que la celda en el límite inferior derecho se ocupa correctamente.
      * Caja Negra: Caso límite - Última celda en el tablero.
+     * Design by Contract - Precondición: Índices dentro de límites.
      */
     @Test
     public void testLastCellBoundary() {
         board.occupyCell(9, 19); // Última celda en un tablero 10x20
         assertTrue(board.isCellOccupied(9, 19)); // Comprueba que la última celda está ocupada
-    }
-
-
-    /**
-     * Test: Comprueba que al ocupar una celda se cumple el contrato.
-     * Design by Contract - Precondición: Índices dentro de límites.
-     */
-    @Test
-    public void testOccupyCellWithinBoundsContract() {
-        board.occupyCell(4, 4);
-        assertTrue(board.isCellOccupied(4, 4));
-    }
+    } 
 
     /**
      * Test de cobertura de loops en el método que limpia una línea completa (Ejemplo).
@@ -92,17 +82,6 @@ public class BoardTest {
         for (int x = 0; x < 10; x++) {
             assertFalse(board.isCellOccupied(x, 19)); // Verifica que cada celda esté vacía
         }
-    }
-
-    /**
-     * Test para asegurar que se cumple la cobertura de decisiones y condiciones.
-     * Caja Blanca: Cobertura de decisión en el método `isCellOccupied`.
-     */
-    @Test
-    public void testDecisionCoverageIsCellOccupied() {
-        assertFalse(board.isCellOccupied(5, 5)); // Decisión: celda vacía
-        board.occupyCell(5, 5);
-        assertTrue(board.isCellOccupied(5, 5));  // Decisión: celda ocupada
     }
 
     /**

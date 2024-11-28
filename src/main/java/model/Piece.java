@@ -66,8 +66,10 @@ public final class Piece {
      * @param dy El cambio en la coordenada y.
      */
     public void move(final int dx, final int dy) {
+    	if (dy >= 0) {
         this.x += dx;
         this.y += dy;
+    	}
     }
 
     /** Rotación de la pieza en el sentido de las agujas del reloj.*/
