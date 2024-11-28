@@ -93,7 +93,7 @@ public class GameControllerTest {
      */
     @Test 
     public void testRotatePieceWithCollision() { 
-        // Crea un mock de Piece
+        // Crea el mock de Piece
         Piece mockPiece = Mockito.mock(Piece.class);
 
         // Configura los métodos del mock
@@ -103,6 +103,9 @@ public class GameControllerTest {
         };
         Mockito.when(mockPiece.getShape()).thenReturn(shape);
 
+        // Crea el mock de Board y configúralo
+        Board board = Mockito.mock(Board.class);
+        gameController.setBoard(board);
         gameController.setPiece(mockPiece);
 
         // Configura la colisión en el tablero
