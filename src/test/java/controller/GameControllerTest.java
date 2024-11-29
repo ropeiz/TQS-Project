@@ -53,6 +53,7 @@ public class GameControllerTest {
     public void testMovePieceDownPathCoverage() {
         // 1. Caso: El juego ha terminado
         gameController.getBoard().occupyCell(5, 0); // Simula un bloqueo inmediato
+        assertTrue("La celda (5, 0) debe estar ocupada", gameController.getBoard().isCellOccupied(5, 0));
         gameController.spawnNewPiece();
         assertTrue("SpawnNewPiece no cree que haya acabado", gameController.getIsGameOver());
         boolean result = gameController.movePieceDown(); // La primera pieza genera colisión
