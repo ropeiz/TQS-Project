@@ -54,6 +54,7 @@ public class GameControllerTest {
         // 1. Caso: El juego ha terminado
         gameController.getBoard().occupyCell(5, 0); // Simula un bloqueo inmediato
         gameController.spawnNewPiece();
+        assertTrue("SpawnNewPiece no cree que haya acabado", gameController.getIsGameOver());
         boolean result = gameController.movePieceDown(); // La primera pieza genera colisión
         assertFalse("El juego debe estar terminado después de colisión inicial", result);
 
