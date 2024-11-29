@@ -244,4 +244,43 @@ public class BoardTest {
         newPiece.setPosition(0, 0);
         assertTrue(board.checkCollision(newPiece));
     }
+    
+    /**
+     * Test: Verifica que el método renderWithPiece renderiza correctamente el tablero con la pieza.
+     */
+    @Test
+    public void testRenderWithPiece() {
+        // Inicializamos un tablero de 5x5.
+        Board board = new Board(5, 5);
+
+        // Creamos una pieza de tamaño 2x2 (forma de bloque).
+        boolean[][] shape = new boolean[][]{
+            {true, true},
+            {true, true}
+        };
+        Piece piece = new Piece(shape);
+        
+        // Colocamos la pieza en la posición (1, 1).
+        piece.setPosition(1, 1);
+
+        // Renderizamos el tablero con la pieza.
+        char[][] rendered = board.renderWithPiece(piece);
+
+        // Verificamos que el tablero se renderiza correctamente.
+        // Tablero vacío (sin piezas bloqueadas).
+        char[][] expected = new char[][]{
+            {' ', ' ', ' ', ' ', ' '},
+            {' ', 'O', 'O', ' ', ' '},
+            {' ', 'O', 'O', ' ', ' '},
+            {' ', ' ', ' ', ' ', ' '},
+            {' ', ' ', ' ', ' ', ' '}
+        };
+
+        // Comparamos el resultado esperado con el renderizado
+        for (int y = 0; y < 5; y++) {
+            for (int x = 0; x < 5; x++) {
+                assertEquals("Error en la celda (" + y + ", " + x + ")", expected[y][x], rendered[y][x]);
+            }
+        }
+    }
 }
