@@ -116,12 +116,21 @@ public class GameController {
     /**
      * Rota la pieza actual en el sentido de las agujas del reloj.
      */
-    public void rotatePiece() {
+    public void rotatePiece(boolean clockwise) {
         if (!isGameOver) {
-            currentPiece.rotateClockwise();
-            if (board.checkCollision(currentPiece)) {
-                currentPiece.rotateCounterClockwise();  // Revertir rotación
-            }
+        	if(clockwise) {
+        		currentPiece.rotateClockwise();
+        		if (board.checkCollision(currentPiece)) {
+        			currentPiece.rotateCounterClockwise();  // Revertir rotación
+        		}
+        	}
+        	else {
+        		currentPiece.rotateCounterClockwise();
+        		if (board.checkCollision(currentPiece)) {
+        			currentPiece.rotateClockwise();  // Revertir rotación
+        		}
+        		
+        	}
         }
     }
 

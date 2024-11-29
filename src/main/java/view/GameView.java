@@ -15,16 +15,16 @@ public class GameView {
         int width = board.getWidth();
         int height = board.getHeight();
 
-        System.out.println("+" + "-".repeat(width) + "+");
+        System.out.println("+" + "—".repeat(width*2) + "+");
 
         for (int y = 0; y < height; y++) {
             System.out.print("|");
             for (int x = 0; x < width; x++) {
-                System.out.print(renderedBoard[y][x]);
+                System.out.print(renderedBoard[y][x] + " ");
             }
             System.out.println("|");
         }
 
-        System.out.println("+" + "-".repeat(width) + "+");
+        System.out.println("+" + "—".repeat(width*2) + "+");
     }
 }
