@@ -50,9 +50,10 @@ public class PieceTest {
      */
     @Test
     public void testMovePieceNegativeValues() {
-        piece.move(-1, 1);
+        piece.move(-1, -1);
         assertEquals(-1, piece.getX()); // Permite valores negativos
-        assertEquals(1, piece.getY());
+        assertEquals(-1, piece.getY());
+        
     }
 
     /**

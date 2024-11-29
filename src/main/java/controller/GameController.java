@@ -125,12 +125,5 @@ public class GameController {
         }
     }
 
-    /**
-     * Verifica si el juego ha terminado.
-     * @return true si el juego ha terminado, false en caso contrario.
-     */
-    public boolean isGameOver() {
-        return isGameOver;
-    }
 
 }

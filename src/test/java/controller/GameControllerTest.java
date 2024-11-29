@@ -41,6 +41,46 @@ public class GameControllerTest {
         assertTrue(moved);
         assertEquals(1, piece.getY());
     }
+    
+    /**
+     * Test: Verifica que todos los paths de la función
+     * MovePieceDown funcionen correctamente.
+     * correctamente.
+     * Caja Negra: Partición equivalente - Movimiento hacia abajo.
+     * Caja Blanca: Cobertura de caminos en el método movePieceDown.
+     */
+    @Test
+    public void testMovePieceDownPathCoverage() {
+        // 1. Caso: El juego ha terminado
+    	gameController.getBoard().occupyCell(2, 0); // Simula un bloqueo inmediato
+    	gameController.getBoard().occupyCell(3, 0); // Simula un bloqueo inmediato
+    	gameController.getBoard().occupyCell(4, 0); // Simula un bloqueo inmediato
+        gameController.getBoard().occupyCell(5, 0); // Simula un bloqueo inmediato
+        gameController.getBoard().occupyCell(6, 0); // Simula un bloqueo inmediato
+        gameController.getBoard().occupyCell(7, 0); // Simula un bloqueo inmediato
+        gameController.spawnNewPiece();
+        assertTrue("SpawnNewPiece no cree que haya acabado", gameController.getIsGameOver());
+        boolean result = gameController.movePieceDown(); // La primera pieza genera colisión
+        assertFalse("El juego debe estar terminado después de colisión inicial", result);
+
+        // Reiniciar el estado del juego
+        board = new Board(10, 20); // Nuevo tablero vacío
+        gameController = new GameController(board);
+
+        // 2. Caso: Movimiento exitoso
+        Piece piece = new Piece(new boolean[][]{{true, true}, {true, true}}); // Pieza cuadrada
+        gameController.setPiece(piece);
+        piece.setPosition(4, 5); // Ubicación inicial segura
+
+        result = gameController.movePieceDown();
+        assertTrue("La pieza debe moverse hacia abajo con éxito", result);
+        assertEquals("La posición Y de la pieza debe incrementarse", 6, piece.getY());
+
+        // 3. Caso: Movimiento con colisión
+        piece.setPosition(4, board.getHeight() - piece.getHeight()); // Pieza cerca del fondo
+        result = gameController.movePieceDown();
+        assertFalse("El movimiento debe fallar debido a colisión con el fondo", result);
+        }
 
     /**
      * Test: Verifica que el movimiento a la izquierda de la pieza funcione
@@ -134,7 +174,7 @@ public class GameControllerTest {
     	  	board = Mockito.mock(Board.class);
             Mockito.when(board.checkCollision(Mockito.any())).thenReturn(true);
             gameController = new GameController(board);
-            assertTrue(gameController.isGameOver()); 
+            assertTrue(gameController.getIsGameOver()); 
             }
      
 }
