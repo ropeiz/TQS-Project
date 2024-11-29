@@ -35,6 +35,7 @@ public class TetrisGame {
      * juego y establece el estado del juego a
      * ejecución.
      */
+    
     public TetrisGame() {
         board = new Board(BOARD_WIDTH, BOARD_HEIGHT);
         controller = new GameController(board);
