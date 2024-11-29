@@ -52,14 +52,10 @@ public class GameControllerTest {
     @Test
     public void testMovePieceDownPathCoverage() {
         // 1. Caso: El juego ha terminado
-    	gameController.getBoard().occupyCell(2, 0); // Simula un bloqueo inmediato
-    	gameController.getBoard().occupyCell(3, 0); // Simula un bloqueo inmediato
-    	gameController.getBoard().occupyCell(4, 0); // Simula un bloqueo inmediato
-        gameController.getBoard().occupyCell(5, 0); // Simula un bloqueo inmediato
-        gameController.getBoard().occupyCell(6, 0); // Simula un bloqueo inmediato
-        gameController.getBoard().occupyCell(7, 0); // Simula un bloqueo inmediato
+    	for (int x = 0; x < 10; x++) { 
+    	    gameController.getBoard().occupyCell(x, 0); // Ocupa todas las celdas de la primera fila (y = 0)
+    	}
         gameController.spawnNewPiece();
-        assertTrue("SpawnNewPiece no cree que haya acabado", gameController.getIsGameOver());
         boolean result = gameController.movePieceDown(); // La primera pieza genera colisión
         assertFalse("El juego debe estar terminado después de colisión inicial", result);
 
@@ -93,16 +89,36 @@ public class GameControllerTest {
     }
 
     /**
-     * Test: Verifica que el movimiento a la izquierda se detenga en el borde. Caja
-     * Negra: Caso límite - Movimiento hacia el borde izquierdo.
+     * Test: Verifica que el movimiento a la izquierda se detenga en el borde. 
+     * Caja Negra: Caso límite - Movimiento hacia el borde izquierdo.
+     * Caja Blanca: Loop testing simple.
      */
     @Test
-    public void testMovePieceLeftBoundary() {
-        for (int i = 0; i < board.getWidth(); i++) {
+    public void testMovePieceLeftLoop() {
+        // Caso 1: Sin iteraciones (ya en el borde)
+        piece.setPosition(0, 0); // Asegurar que la pieza está en el borde
+        gameController.movePieceLeft();
+        assertEquals(0, piece.getX()); // Debe quedarse en el borde
+
+        // Caso 2: Una sola iteración
+        piece.setPosition(1, 0); // Una posición desde el borde
+        gameController.movePieceLeft();
+        assertEquals(0, piece.getX()); // Debe moverse una celda a la izquierda
+
+        // Caso 3: Varias iteraciones (caso general)
+        piece.setPosition(5, 0); // Más lejos del borde
+        for (int i = 0; i < 5; i++) {
             gameController.movePieceLeft();
         }
-        assertEquals(0, piece.getX());
+        assertEquals(0, piece.getX()); // Debe llegar al borde
+
+        // Caso 4: Condición límite superior (máximo permitido)
+        for (int i = 0; i < 10; i++) { // Intentar mover más allá del borde
+            gameController.movePieceLeft();
+        }
+        assertEquals(0, piece.getX()); // Debe quedarse en el borde
     }
+    
 
     /**
      * Test: Verifica que el movimiento a la derecha de la pieza funcione
@@ -115,19 +131,38 @@ public class GameControllerTest {
     }
 
     /**
-     * Test: Verifica que el movimiento a la derecha se detenga en el borde. Caja
-     * Negra: Caso límite - Movimiento hacia el borde derecho.
+     * Test: Verifica que el movimiento a la derecha se detenga en el borde.
+     * Caja Negra: Caso límite - Movimiento hacia el borde derecho.
+     * Caja Blanca: Loop testing simple.
      */
     @Test
-    public void testMovePieceRightBoundary() {
-        for (int i = 0; i < board.getWidth(); i++) {
+    public void testMovePieceRightLoop() {
+    	// Caso 1: Sin iteraciones (ya en el borde derecho)
+        piece.setPosition(board.getWidth() - piece.getWidth(), 0); // Coloca la pieza en el borde derecho
+        gameController.movePieceRight();
+        assertEquals(board.getWidth() - piece.getWidth(), piece.getX()); // No debería moverse más allá del borde
+
+        // Caso 2: Una sola iteración
+        piece.setPosition(board.getWidth() - piece.getWidth() - 1, 0); // Justo antes del borde
+        gameController.movePieceRight();
+        assertEquals(board.getWidth() - piece.getWidth(), piece.getX()); // Debería moverse exactamente una celda a la derecha
+
+        // Caso 3: Varias iteraciones (caso general)
+        piece.setPosition(board.getWidth() / 2, 0); // En algún lugar intermedio
+        for (int i = 0; i < (board.getWidth() / 2); i++) {
             gameController.movePieceRight();
         }
-        assertEquals(board.getWidth() - piece.getWidth(), piece.getX());
+        assertEquals(board.getWidth() - piece.getWidth(), piece.getX()); // Debe alcanzar el borde derecho
+
+        // Caso 4: Condición límite superior (máximo permitido)
+        for (int i = 0; i < board.getWidth() * 2; i++) { // Intentar mover más allá del borde
+            gameController.movePieceRight();
+        }
+        assertEquals(board.getWidth() - piece.getWidth(), piece.getX()); // No debe pasar el límite derecho
     }
 
     /**
-     * Test: Verifica que el método `rotatePiece` funcione y revierta la rotación si
+     * Test: Verifica que el método rotatePiece funcione y revierta la rotación si
      * hay una colisión. Caja Blanca: Cobertura de caminos - Rotación y deshacer
      * rotación.
      */

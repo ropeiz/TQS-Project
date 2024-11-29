@@ -70,8 +70,7 @@ public class BoardTest {
     } 
 
     /**
-     * Test de cobertura de loops en el método que limpia una línea completa (Ejemplo).
-     * Caja Blanca: Prueba de loop simple y cobertura de declaraciones.
+     * Test para verificar que se limpia bien una fila.
      */
     @Test
     public void testClearLineLoop() {
