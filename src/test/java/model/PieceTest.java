@@ -131,4 +131,25 @@ public class PieceTest {
         assertNotNull(randomPiece.getShape());
     }
     
+    /**
+     * Test: Verifica que el método setPosition coloca la pieza en la posición correcta.
+     * Caja Negra: Se prueba si el método setPosition actualiza correctamente las coordenadas de la pieza.
+     */
+    @Test
+    public void testSetPosition() {
+        // Inicializamos la pieza en una posición conocida (por ejemplo, (0, 0)).
+        piece.setPosition(0, 0);
+
+        // Verificamos que la pieza está en la posición (0, 0) inicialmente
+        assertEquals(0, piece.getX());  // Debería estar en x = 0
+        assertEquals(0, piece.getY());  // Debería estar en y = 0
+
+        // Ahora movemos la pieza a una nueva posición (5, 10).
+        piece.setPosition(5, 10);
+
+        // Verificamos que la pieza se ha movido correctamente a la nueva posición
+        assertEquals(5, piece.getX());  // La nueva posición en x debe ser 5
+        assertEquals(10, piece.getY()); // La nueva posición en y debe ser 10
+    }
+    
 }
