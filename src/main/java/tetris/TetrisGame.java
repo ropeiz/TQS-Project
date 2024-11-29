@@ -52,7 +52,7 @@ public class TetrisGame {
         System.out.println("Bienvenido a Tetris! Controles:");
         System.out.println("Entrada no válida. " + "Usa a (izq), "
                 + " d (der), s (abajo), e (rotar izquierda), "
-        	    + "r (rotar derecha), q (salir).");
+                + "r (rotar derecha), q (salir).");
 
         while (running) {
             view.displayBoard(board, controller.getCurrentPiece());

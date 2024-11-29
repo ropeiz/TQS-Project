@@ -119,8 +119,8 @@ public class GameController {
      */
     public void rotatePiece(final boolean clockwise) {
         if (!isGameOver) {
-            if(clockwise) {
-        	    currentPiece.rotateClockwise();
+            if (clockwise) {
+                currentPiece.rotateClockwise();
                 if (board.checkCollision(currentPiece)) {
         		    currentPiece.rotateCounterClockwise();
         	    }
@@ -132,6 +132,6 @@ public class GameController {
         	    }
 
             }
-       }
+        }
     }
 }
