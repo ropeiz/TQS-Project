@@ -124,12 +124,12 @@ public class GameController {
                 if (board.checkCollision(currentPiece)) {
                     currentPiece.rotateCounterClockwise();
                 }
-            }
-            else {
-                currentPiece.rotateCounterClockwise();
-                if (board.checkCollision(currentPiece)) {
-                    currentPiece.rotateClockwise();
-                }
+
+            } else {
+              currentPiece.rotateCounterClockwise();
+              if (board.checkCollision(currentPiece)) {
+                  currentPiece.rotateClockwise();
+              }
 
             }
         }
