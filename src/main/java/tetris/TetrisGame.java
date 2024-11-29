@@ -50,7 +50,7 @@ public class TetrisGame {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Bienvenido a Tetris! Controles:");
-        System.out.println("Entrada no válida. " + "Usa a (izq), "
+        System.out.println("Usa a (izq), "
                 + " d (der), s (abajo), e (rotar izquierda), "
                 + "r (rotar derecha), q (salir).");
 
@@ -101,7 +101,7 @@ public class TetrisGame {
             System.out.println("Saliendo del juego...");
             break;
         default:
-            System.out.println("Entrada no válida. " + "Usa a (izq), "
+            System.out.println("Usa a (izq), "
             + " d (der), s (abajo), e (rotar izquierda), "
             + "r (rotar derecha), q (salir).");
             break;
