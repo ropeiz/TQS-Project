@@ -15,7 +15,7 @@ public class GameView {
         int width = board.getWidth();
         int height = board.getHeight();
 
-        System.out.println("+" + "—".repeat(width*2) + "+");
+        System.out.println("+" + "—".repeat(width * 2) + "+");
 
         for (int y = 0; y < height; y++) {
             System.out.print("|");
@@ -25,6 +25,6 @@ public class GameView {
             System.out.println("|");
         }
 
-        System.out.println("+" + "—".repeat(width*2) + "+");
+        System.out.println("+" + "—".repeat(width * 2) + "+");
     }
 }

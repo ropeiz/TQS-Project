@@ -115,24 +115,23 @@ public class GameController {
 
     /**
      * Rota la pieza actual en el sentido de las agujas del reloj.
+     * @param clockwise determina el sentido del giro.
      */
-    public void rotatePiece(boolean clockwise) {
+    public void rotatePiece(final boolean clockwise) {
         if (!isGameOver) {
-        	if(clockwise) {
-        		currentPiece.rotateClockwise();
-        		if (board.checkCollision(currentPiece)) {
-        			currentPiece.rotateCounterClockwise();  // Revertir rotación
-        		}
-        	}
+            if(clockwise) {
+        	    currentPiece.rotateClockwise();
+                if (board.checkCollision(currentPiece)) {
+        		    currentPiece.rotateCounterClockwise();
+        	    }
+            }
         	else {
-        		currentPiece.rotateCounterClockwise();
-        		if (board.checkCollision(currentPiece)) {
-        			currentPiece.rotateClockwise();  // Revertir rotación
-        		}
-        		
-        	}
-        }
+        	    currentPiece.rotateCounterClockwise();
+        	    if (board.checkCollision(currentPiece)) {
+        		    currentPiece.rotateClockwise();
+        	    }
+
+            }
+       }
     }
-
-
 }

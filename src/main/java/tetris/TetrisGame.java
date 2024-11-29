@@ -51,7 +51,8 @@ public class TetrisGame {
 
         System.out.println("Bienvenido a Tetris! Controles:");
         System.out.println("Entrada no válida. " + "Usa a (izq), "
-                + " d (der), s (abajo), e (rotar izquierda), r (rotar derecha), q (salir).");
+                + " d (der), s (abajo), e (rotar izquierda), "
+        	    + "r (rotar derecha), q (salir).");
 
         while (running) {
             view.displayBoard(board, controller.getCurrentPiece());
@@ -93,15 +94,16 @@ public class TetrisGame {
             controller.rotatePiece(true);
             break;
         case "e":
-        	controller.rotatePiece(false);
-        	break;
+            controller.rotatePiece(false);
+            break;
         case "q":
             running = false;
             System.out.println("Saliendo del juego...");
             break;
         default:
             System.out.println("Entrada no válida. " + "Usa a (izq), "
-            + " d (der), s (abajo), e (rotar izquierda), r (rotar derecha), q (salir).");
+            + " d (der), s (abajo), e (rotar izquierda), "
+            + "r (rotar derecha), q (salir).");
             break;
         }
     }
