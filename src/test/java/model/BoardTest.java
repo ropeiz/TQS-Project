@@ -22,6 +22,32 @@ public class BoardTest {
         };
         piece = new Piece(shape);
     }
+    
+    class MockPiece extends Piece {
+        private int mockX;
+        private int mockY;
+
+        public MockPiece(int mockX, int mockY) {
+            super(new boolean[][]{{true, true}, {true, true}}); // Forma de la pieza
+            this.mockX = mockX;
+            this.mockY = mockY;
+        }
+
+        @Override
+        public int getX() {
+            return mockX;
+        }
+
+        @Override
+        public int getY() {
+            return mockY;
+        }
+
+        @Override
+        public boolean[][] getShape() {
+            return super.getShape();
+        }
+    }
 
     /**
      * Test: Verifica que una celda esté desocupada por defecto.
@@ -156,21 +182,26 @@ public class BoardTest {
     /**
      * Test: Verifica que checkCollision detecta colisiones con los bordes del tablero.
      * Caja Negra: Caso límite - Colisión en los bordes.
+     * Usa un mock object de piece implementado a mano.
      */
     @Test
     public void testCheckCollisionWithBoardEdges() {
 
-        piece.setPosition(-1, 0); // Colocar fuera del borde izquierdo
-        assertTrue(board.checkCollision(piece));
+    	// Colocar fuera del borde izquierdo
+        MockPiece mockPiece = new MockPiece(-1, 0);
+        assertTrue(board.checkCollision(mockPiece));
 
-        piece.setPosition(9, 19); // Colocar fuera del borde derecho
-        assertTrue(board.checkCollision(piece));
+        // Colocar fuera del borde derecho
+        mockPiece = new MockPiece(9, 19);
+        assertTrue(board.checkCollision(mockPiece));
 
-        piece.setPosition(0, -1); // Colocar fuera del borde superior
-        assertTrue(board.checkCollision(piece));
+        // Colocar fuera del borde superior
+        mockPiece = new MockPiece(0, -1);
+        assertTrue(board.checkCollision(mockPiece));
 
-        piece.setPosition(0, 19); // Colocar en el borde inferior
-        assertTrue(board.checkCollision(piece));
+        // Colocar en el borde inferior
+        mockPiece = new MockPiece(0, 19);
+        assertTrue(board.checkCollision(mockPiece));
     }
 
     /**
@@ -229,20 +260,20 @@ public class BoardTest {
 
     /**
      * Test: Verifica que checkCollision detecta colisiones con piezas ya bloqueadas.
+     * Usa un mock object de piece implementado a mano.
      */
     @Test
     public void testCheckCollisionWithLockedPieces() {
     	
-        // Bloquea una pieza en la esquina superior izquierda
-        board.lockPiece(piece);
+        // Crear un mock de la pieza bloqueada en la esquina superior izquierda
+        MockPiece mockPiece = new MockPiece(0, 0);
+        board.lockPiece(mockPiece);
 
-        // Coloca otra pieza en la misma posición y verifica que haya colisión
-        Piece newPiece = new Piece(new boolean[][]{
-            {true, true},
-            {true, true}
-        });
-        newPiece.setPosition(0, 0);
-        assertTrue(board.checkCollision(newPiece));
+        // Crear un mock de una nueva pieza en la misma posición
+        MockPiece newMockPiece = new MockPiece(0, 0);
+        
+        // Verificar si hay colisión con la pieza bloqueada
+        assertTrue(board.checkCollision(newMockPiece));
     }
     
     /**

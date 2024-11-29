@@ -15,7 +15,7 @@ public class GameControllerTest {
 
     @Before
     public void setUp() {
-        board = new Board(10, 20); // Tablero de 10x20
+        board = new Board(10, 20);
         gameController = new GameController(board);
         piece = gameController.getCurrentPiece();
     }
@@ -32,7 +32,8 @@ public class GameControllerTest {
 
     /**
      * Test: Verifica que el movimiento hacia abajo de la pieza funcione
-     * correctamente. Caja Negra: Partición equivalente - Movimiento hacia abajo.
+     * correctamente. 
+     * Caja Negra: Partición equivalente - Movimiento hacia abajo.
      * Caja Blanca: Cobertura de declaración en el método movePieceDown.
      */
     @Test
@@ -45,7 +46,6 @@ public class GameControllerTest {
     /**
      * Test: Verifica que todos los paths de la función
      * MovePieceDown funcionen correctamente.
-     * correctamente.
      * Caja Negra: Partición equivalente - Movimiento hacia abajo.
      * Caja Blanca: Cobertura de caminos en el método movePieceDown.
      */
@@ -118,7 +118,7 @@ public class GameControllerTest {
         }
         assertEquals(0, piece.getX()); // Debe quedarse en el borde
     }
-    
+
 
     /**
      * Test: Verifica que el movimiento a la derecha de la pieza funcione
@@ -191,14 +191,12 @@ public class GameControllerTest {
         gameController.setPiece(mockPiece);
 
         // Llama al método que deseas probar
-        gameController.rotatePiece();
+        gameController.rotatePiece(true);
 
         // Verifica que los métodos correctos fueron llamados
         Mockito.verify(mockPiece).rotateClockwise();
         Mockito.verify(mockPiece).rotateCounterClockwise(); 
     }
-
-
 
     /**
      * Test: Verifica que el juego termine si no hay espacio para una nueva pieza.

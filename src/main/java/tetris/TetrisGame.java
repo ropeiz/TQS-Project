@@ -50,8 +50,9 @@ public class TetrisGame {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Bienvenido a Tetris! Controles:");
-        System.out.println("a = Izquierda, d = Derecha, s = Abajo, "
-        + "w = Rotar, q = Salir");
+        System.out.println("Entrada no válida. " + "Usa a (izq), "
+                + " d (der), s (abajo), e (rotar izquierda), "
+                + "r (rotar derecha), q (salir).");
 
         while (running) {
             view.displayBoard(board, controller.getCurrentPiece());
@@ -89,8 +90,11 @@ public class TetrisGame {
         case "s":
             controller.movePieceDown();
             break;
-        case "w":
-            controller.rotatePiece();
+        case "r":
+            controller.rotatePiece(true);
+            break;
+        case "e":
+            controller.rotatePiece(false);
             break;
         case "q":
             running = false;
@@ -98,7 +102,8 @@ public class TetrisGame {
             break;
         default:
             System.out.println("Entrada no válida. " + "Usa a (izq), "
-            + " d (der), s (abajo), w (rotar), q (salir).");
+            + " d (der), s (abajo), e (rotar izquierda), "
+            + "r (rotar derecha), q (salir).");
             break;
         }
     }
