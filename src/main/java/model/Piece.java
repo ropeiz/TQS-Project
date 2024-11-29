@@ -67,7 +67,7 @@ public class Piece {
      */
     public void move(final int dx, final int dy) {
         this.x += dx;
-        this.y += dy;  
+        this.y += dy;
     }
 
     /** Rotación de la pieza en el sentido de las agujas del reloj.*/
