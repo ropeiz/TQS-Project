@@ -28,7 +28,6 @@ public class GameController {
 
     /**
      * @return Devuelve si el juego ha terminado.
-     *
      * */
     public boolean getIsGameOver() {
         return this.isGameOver;

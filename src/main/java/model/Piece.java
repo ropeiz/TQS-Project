@@ -56,6 +56,17 @@ public class Piece {
         return y;
     }
 
+    /** @return Devuelve el ancho de la pieza
+     *(para validaciones de colisión y límites).*/
+    public int getWidth() {
+        return shape[0].length;
+    }
+
+    /** @return Devuelve la altura de la pieza.*/
+    public int getHeight() {
+        return shape.length;
+    }
+
     /**
      * Mueve la pieza a una nueva posición.
      *
@@ -126,16 +137,7 @@ public class Piece {
         return new Piece(randomShape);
     }
 
-    /** @return Devuelve el ancho de la pieza
-     *(para validaciones de colisión y límites).*/
-    public int getWidth() {
-        return shape[0].length;
-    }
 
-    /** @return Devuelve la altura de la pieza.*/
-    public int getHeight() {
-        return shape.length;
-    }
 
     /** Coloca la pieza en una posición específica del tablero.
      * @param newX será la nueva posición X
