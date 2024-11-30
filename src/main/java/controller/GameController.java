@@ -34,7 +34,7 @@ public class GameController {
     }
 
     /**
-     * Setter para la variable isGameOver
+     * Setter para la variable isGameOver.
      * @param over Si ha acabado el juego over = true.
      * */
     public void setIsGameOver(final boolean over) {
