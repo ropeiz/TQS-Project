@@ -66,7 +66,7 @@ public class Board {
      * @return true si la celda está ocupada; false de lo contrario.
      */
     public boolean isCellOccupied(final int x, final int y) {
-    	if (y >= 0 && y < height && x >= 0 && x < width) {
+        if (y >= 0 && y < height && x >= 0 && x < width) {
             return grid[y][x];
         }
         return false;
