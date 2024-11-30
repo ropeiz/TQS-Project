@@ -34,6 +34,13 @@ public class GameController {
     }
 
     /**
+     * @return Devuelve si el juego ha terminado.
+     * */
+    public void setIsGameOver(final boolean over) {
+        this.isGameOver = over;
+    }
+
+    /**
      * Constructor de la clase GameController.
      *
      * Inicializa el controlador con el tablero proporcionado

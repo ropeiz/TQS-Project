@@ -64,6 +64,7 @@ public class BoardTest {
      */
     @Test
     public void testIsCellOccupiedAfterOccupyCell() {
+    	
         // Caso 1: Todas las condiciones son verdaderas (dentro del tablero, celda no ocupada).
         assertFalse("Caso 1: Celda libre dentro del tablero", board.isCellOccupied(5, 5));
 
@@ -72,18 +73,23 @@ public class BoardTest {
         assertTrue("Caso 2: Celda ocupada dentro del tablero", board.isCellOccupied(3, 3));
 
         // Caso 3: y < 0 (fuera del borde superior).
+        board.occupyCell(5, -1);
         assertFalse("Caso 3: Fuera del borde superior", board.isCellOccupied(5, -1));
 
         // Caso 4: y >= height (fuera del borde inferior).
+        board.occupyCell(5, 20);
         assertFalse("Caso 4: Fuera del borde inferior", board.isCellOccupied(5, 20));
 
         // Caso 5: x < 0 (fuera del borde izquierdo).
+        board.occupyCell(-1, 5);
         assertFalse("Caso 5: Fuera del borde izquierdo", board.isCellOccupied(-1, 5));
 
         // Caso 6: x >= width (fuera del borde derecho).
+        board.occupyCell(10, 5);
         assertFalse("Caso 6: Fuera del borde derecho", board.isCellOccupied(10, 5));
 
         // Caso 7: Múltiples condiciones falsas (fuera del tablero en ambas dimensiones).
+        board.occupyCell(-1, 20);
         assertFalse("Caso 7: Fuera del tablero completamente", board.isCellOccupied(-1, 20));
     }
 
@@ -361,17 +367,55 @@ public class BoardTest {
                 assertEquals("Error en caso 2", ' ', rendered[i][j]);
             }
         }
+        
+        // Caso 3: Cuando la pieza se coloca parcialmente fuera del board.
+        piece = new Piece(new boolean[][] { { true } });
+        piece.setPosition(-1, 5); // pieza fuera del board (-1,5)
+        rendered = board.renderWithPiece(piece);
+        for (int i = 0; i < rendered.length; i++) {
+            for (int j = 0; j < rendered[i].length; j++) {
+                assertEquals("Error en caso 3", ' ', rendered[i][j]);
+            }
+        }
+        
+        // Caso 4: Cuando la pieza se coloca parcialmente fuera del board.
+        piece = new Piece(new boolean[][] { { true } });
+        piece.setPosition(5, -1); // pieza fuera del board (5,-1)
+        rendered = board.renderWithPiece(piece);
+        for (int i = 0; i < rendered.length; i++) {
+            for (int j = 0; j < rendered[i].length; j++) {
+                assertEquals("Error en caso 4", ' ', rendered[i][j]);
+            }
+        }
 
-        // Caso 3: Cuando la pieza tiene una forma que no afecta al board.
+        // Caso 5: Cuando la pieza tiene una forma que no afecta al board.
         piece = new Piece(new boolean[][] { { false } });
         piece.setPosition(5, 5); // pieza sin forma
         rendered = board.renderWithPiece(piece);
-        assertEquals("Error en caso 3",' ', rendered[5][5]);
+        assertEquals("Error en caso 5",' ', rendered[5][5]);
 
-        // Caso 4: Cuando la pieza se coloca parcialmente fuera del board.
+        // Caso 6: Cuando la pieza se coloca parcialmente fuera del board.
         piece = new Piece(new boolean[][] { { true, true }, { true, true } });
         piece.setPosition(19, 9);
         rendered = board.renderWithPiece(piece);
+        assertEquals("Error en caso 6",' ', rendered[19][9]);
+        
+        // Caso 7: Cuando la pieza se coloca parcialmente fuera del board.
+        piece = new Piece(new boolean[][] { { true, true }, { true, true } });
+        piece.setPosition(9, 30);
+        rendered = board.renderWithPiece(piece);
+        for (int i = 0; i < rendered.length; i++) {
+            for (int j = 0; j < rendered[i].length; j++) {
+                assertEquals("Error en caso 7", ' ', rendered[i][j]);
+            }
+        }
+        
+     // Caso 8: Hay una pieza antes de renderizar.
+        piece = new Piece(new boolean[][] { { true, true }, { true, true } });
+        board.occupyCell(5, 5);
+        piece.setPosition(19, 9);
+        rendered = board.renderWithPiece(piece);
+        assertEquals("Error en caso 6",' ', rendered[19][9]);
         
     }
 }

@@ -194,8 +194,8 @@ public class Board {
                     int renderX = pieceX + col;
                     int renderY = pieceY + row;
 
-                    if (renderX >= 0 && renderX < width
-                    && renderY >= 0 && renderY < height) {
+                    if (renderX >= 0 && renderX < width 
+                        && renderY >= 0 && renderY < height) {
                         rendered[renderY][renderX] = 'O';
                     }
                 }

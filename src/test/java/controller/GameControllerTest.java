@@ -151,12 +151,49 @@ public class GameControllerTest {
         assertEquals(board.getWidth() - piece.getWidth(), piece.getX()); // No debe pasar el límite derecho
     }
 
+    
+    /**
+     * Test: Verifica que las piezas giren en ambos sentidos
+     */
+    @Test 
+    public void testRotatePiece() { 
+    	Piece piece = new Piece(new boolean[][]{
+            {true, false},
+            {true, true}
+        });
+        piece.setPosition(5, 5);
+        gameController.setPiece(piece);
+        // Caso 1: Rotación en sentido horario sin colisión
+        // Intentamos rotar la pieza 90 grados en sentido horario (clockwise).
+        gameController.rotatePiece(true);
+        boolean[][] rotatedShape = {
+            {true, true},
+            {true, false}
+        };
+        assertArrayEquals(piece.getShape(),rotatedShape);
+        
+        // Caso 2: Rotación en sentido antihorario sin colisión
+        // Rotamos en sentido antihorario.
+        gameController.rotatePiece(false);
+        gameController.rotatePiece(false);
+        boolean[][] rotatedShape2 = {
+                {false, true},
+                {true, true}
+            };
+        assertArrayEquals(piece.getShape(),rotatedShape2);
+
+        // Caso 3: Rotar cuando el juego ya ha terminado
+        gameController.setIsGameOver(true);
+        piece.setPosition(5, 5); // Reiniciamos la pieza
+        gameController.rotatePiece(true);
+        assertArrayEquals(piece.getShape(),rotatedShape2);
+    }
     /**
      * Test: Verifica que el método rotatePiece funcione y revierta la rotación si
      * hay una colisión.
      */
     @Test 
-    public void testRotatePieceWithCollision() { 
+    public void testRotateClockwisePieceWithCollision() { 
     	
         Board mockBoard = Mockito.mock(Board.class);
 
@@ -175,6 +212,36 @@ public class GameControllerTest {
         gameController.setPiece(mockPiece);
 
         gameController.rotatePiece(true);
+
+
+        Mockito.verify(mockPiece).rotateClockwise();
+        Mockito.verify(mockPiece).rotateCounterClockwise(); 
+    }
+    /**
+    * Test: Verifica que el método rotatePiece funcione y revierta la rotación si
+    * hay una colisión.
+    */
+    @Test 
+    public void testRotateCounterClockwisePieceWithCollision() { 
+    	
+        Board mockBoard = Mockito.mock(Board.class);
+
+        Piece mockPiece = Mockito.mock(Piece.class);
+
+        GameController gameController = new GameController(mockBoard);
+
+        boolean[][] shape = {
+            { false, true, false }, 
+            { true, true, true }
+        };
+        Mockito.when(mockPiece.getShape()).thenReturn(shape);
+
+        Mockito.doReturn(true).when(mockBoard).checkCollision(mockPiece);
+
+        gameController.setPiece(mockPiece);
+
+        gameController.rotatePiece(false);
+
 
         Mockito.verify(mockPiece).rotateClockwise();
         Mockito.verify(mockPiece).rotateCounterClockwise(); 
