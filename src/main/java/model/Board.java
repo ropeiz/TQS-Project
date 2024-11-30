@@ -48,6 +48,17 @@ public class Board {
         return this.height;
     }
 
+
+    /**
+    * Marca una celda como ocupada en las coordenadas especificadas.
+    * @param x La coordenada x de la celda a ocupar.
+    * @param y La coordenada y de la celda a ocupar.*/
+    public void occupyCell(final int x, final int y) {
+        if (y >= 0 && y < height && x >= 0 && x < width) {
+            grid[y][x] = true;
+            }
+        }
+
     /**
      * Verifica si una celda está ocupada.
      * @param x Coordenada x de la celda.
@@ -83,10 +94,10 @@ public class Board {
 
                     if (boardX < 0 || boardX >= width
                         || boardY < 0 || boardY >= height) {
-                        return true; // Fuera de límites
+                        return true;
                     }
-                    if (boardY >= 0 && grid[boardY][boardX]) {
-                        return true; // Colisión con celdas ocupadas
+                    if (grid[boardY][boardX]) {
+                        return true;
                     }
                 }
             }
@@ -119,20 +130,11 @@ public class Board {
             .filter(row -> !isFull(row))
             .toArray(boolean[][]::new);
 
-        // Añadir nuevas filas vacías en la parte superior
         while (grid.length < height) {
             grid = prependRow(grid, new boolean[width]);
         }
     }
 
-
-    /**
-    Método auxiliar para limpiar una línea específica.
-    @param y La posición Y que se limpiará.*/
-    public void clearLine(final int y) {
-        for (int x = 0; x < width; x++) {
-            grid[y][x] = false; }
-        }
 
     /**
     * @param row La línea que se comprueba.
@@ -162,15 +164,7 @@ public class Board {
         return grid2;
     }
 
-    /**
-    * Marca una celda como ocupada en las coordenadas especificadas.
-    * @param x La coordenada x de la celda a ocupar.
-    * @param y La coordenada y de la celda a ocupar.*/
-    public void occupyCell(final int x, final int y) {
-        if (y >= 0 && y < height && x >= 0 && x < width) {
-            grid[y][x] = true;
-            }
-        }
+
 
     /**
      * Renderiza el tablero actual junto con la posición de la pieza dada.

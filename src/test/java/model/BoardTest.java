@@ -28,7 +28,9 @@ public class BoardTest {
         private int mockY;
 
         public MockPiece(int mockX, int mockY) {
-            super(new boolean[][]{{true, true}, {true, true}}); // Forma de la pieza
+        	// Forma de la pieza
+            super(new boolean[][]{{false, true, false}, {true, true, true}});
+
             this.mockX = mockX;
             this.mockY = mockY;
         }
@@ -51,119 +53,125 @@ public class BoardTest {
 
     /**
      * Test: Verifica que una celda esté desocupada por defecto.
-     * Caja Negra: Partición equivalente - Celda no ocupada.
-     * Caja Blanca: Cobertura de sentencias en la función 'isCellOccupied'.
      */
     @Test
     public void testIsCellOccupiedInitialFalse() {
-    	// Espera false para una celda inicialmente vacía
         assertFalse(board.isCellOccupied(0, 0));
     }
 
     /**
      * Test: Verifica que una celda se marca como ocupada.
-     * Caja Negra: Partición equivalente - Celda ocupada.
-     * Caja Blanca: Cobertura de sentencias en la función 'isCellOccupied'.
      */
     @Test
     public void testIsCellOccupiedAfterOccupyCell() {
     	board.occupyCell(0, 0);
-        // Espera true después de ocupar
         assertTrue(board.isCellOccupied(0, 0));
     }
-
 
     /**
-     * Test: Verifica que varias celdas ocupadas se detectan correctamente.
-     * Caja Blanca: Cobertura de declaraciones y caminos.
-     * Caja Negra: Partición equivalente - Varias celdas ocupadas.
+     * Test: Verifica que se marquen como ocupadas las celdas que estan dentro del tablero.
      */
     @Test
-    public void testMultipleCellsOccupied() {
-        board.occupyCell(0, 0);
+    void testOccupyCellWithinBoard() {
+        // Caso 1: y >= 0 y y < height (ambas condiciones de y positivas)
         board.occupyCell(5, 5);
-        assertTrue(board.isCellOccupied(0, 0));
         assertTrue(board.isCellOccupied(5, 5));
-        assertFalse(board.isCellOccupied(1, 1)); // Celda no ocupada
-    }
 
+        // Caso 2: y >= 0 pero y >= height (y fuera del rango)
+        board.occupyCell(5, 15);
+        assertFalse(board.isCellOccupied(5, 15));
+
+        // Caso 3: y < 0 pero y < height (y fuera del rango por ser negativo)
+        board.occupyCell(5, -1);
+        assertFalse(board.isCellOccupied(5, -1));
+
+        // Caso 4: x >= 0 y x < width (ambas condiciones de x positivas)
+        board.occupyCell(10, 5);
+        assertTrue(board.isCellOccupied(10, 5));
+
+        // Caso 5: x >= 0 pero x >= width (x fuera del rango)
+        board.occupyCell(25, 5);
+        assertFalse(board.isCellOccupied(25, 5));
+
+        // Caso 6: x < 0 pero x < width (x fuera del rango por ser negativo)
+        board.occupyCell(-5, 5);
+        assertFalse(board.isCellOccupied(-5, 5));
+
+        // Caso 7: Ambas condiciones de x y y son negativas
+        board.occupyCell(-5, -1);
+        assertFalse(board.isCellOccupied(-5, -1));
+
+        // Caso 8: Ambas condiciones de x y y son mayores que width/height
+        board.occupyCell(25, 15);
+        assertFalse(board.isCellOccupied(25, 15));
+    }
+    
     /**
      * Test: Verifica que la celda en el límite inferior derecho se ocupa correctamente.
-     * Caja Negra: Caso límite - Última celda en el tablero.
-     * Design by Contract - Precondición: Índices dentro de límites.
      */
     @Test
-    public void testLastCellBoundary() {
-        board.occupyCell(9, 19); // Última celda en un tablero 10x20
-        assertTrue(board.isCellOccupied(9, 19)); // Comprueba que la última celda está ocupada
+    public void testCellBoundary() {
+        board.occupyCell(9, 19);
+        board.occupyCell(9, 0);
+        board.occupyCell(0, 19);
+        board.occupyCell(0, 0);
+       
+        assertTrue(board.isCellOccupied(9, 19));
+        assertTrue(board.isCellOccupied(9, 0));
+        assertTrue(board.isCellOccupied(0, 19));
+        assertTrue(board.isCellOccupied(0, 0));
     }
     
     
     /**
      * Test: Verifica que el método isFull detecta correctamente si una fila está completamente llena.
-     * Caja Negra: Caso límite - Fila completa y fila incompleta.
      */
     @Test
     public void testIsFull() {
         // Fila completamente llena (todas las celdas son true)
         boolean[] fullRow = new boolean[10];
-        Arrays.fill(fullRow, true); // Llena todas las celdas con 'true'
+        Arrays.fill(fullRow, true);
         
         // Fila incompleta (una celda vacía)
         boolean[] incompleteRow = new boolean[10];
-        Arrays.fill(incompleteRow, true); // Llena todas las celdas con 'true'
+        Arrays.fill(incompleteRow, true);
         incompleteRow[5] = false; // Hacemos que la celda 5 sea vacía (false)
         
         // Verificamos que la fila completa sea detectada como llena
-        assertTrue(board.isFull(fullRow)); // Debe ser true, ya que todas las celdas están ocupadas
+        assertTrue(board.isFull(fullRow));
         
         // Verificamos que la fila incompleta sea detectada como no llena
-        assertFalse(board.isFull(incompleteRow)); // Debe ser false, ya que la celda 5 está vacía
-    }
-
-    /**
-     * Test para verificar que se limpia bien una fila.
-     */
-    @Test
-    public void testClearLineLoop() {
-        for (int x = 0; x < 10; x++) {
-            board.occupyCell(x, 19); // Llena la última fila
-        }
-        board.clearLine(19); // Método que debe limpiar la fila
-        for (int x = 0; x < 10; x++) {
-            assertFalse(board.isCellOccupied(x, 19)); // Verifica que cada celda esté vacía
-        }
+        assertFalse(board.isFull(incompleteRow));
     }
     
     /**
-     * Test: Verifica que el método clearFullLines elimina las filas completas y agrega filas vacías en la parte superior.
-     * Caja Negra: Caso límite - Líneas completas que deben ser eliminadas.
+     * Test: Verifica que el método clearFullLines elimina las filas completas 
+     * y agrega filas vacías en la parte superior.
      */
     @Test
     public void testClearFullLines() {
         // Rellenamos algunas filas con celdas ocupadas
         for (int x = 0; x < 10; x++) {
-            board.occupyCell(x, 19); // Rellena la última fila
+            board.occupyCell(x, 19);
         }
         for (int x = 0; x < 10; x++) {
-            board.occupyCell(x, 18); // Rellena la penúltima fila
+            board.occupyCell(x, 18);
         }        
-        // Llamamos al método que debe eliminar las filas completas
+
         board.clearFullLines();
 
         // Verificamos que las filas 19 y 18 se hayan limpiado
         for (int x = 0; x < 10; x++) {
-            assertFalse(board.isCellOccupied(x, 19)); // La última fila debe estar vacía
-            assertFalse(board.isCellOccupied(x, 18)); // La penúltima fila debe estar vacía
+            assertFalse(board.isCellOccupied(x, 19));
+            assertFalse(board.isCellOccupied(x, 18));
         }
 
         // Verificamos que el tamaño del tablero se mantenga correctamente con nuevas filas vacías
-        assertEquals(20, board.getHeight()); // El alto del tablero debe seguir siendo 20
+        assertEquals(20, board.getHeight());
     }
 
     /**
      * Test para asegurar que el constructor y getWidth funcionan correctamente.
-     * Caja Blanca: Cobertura de sentencias en constructor y en 'getWidth()'.
      */
     @Test
     public void testGetWidth() {
@@ -172,41 +180,14 @@ public class BoardTest {
 
     /**
      * Test para asegurar que el constructor y getHeight funcionan correctamente.
-     * Caja Blanca: Cobertura de sentencias en constructor y en 'getHeight()'.
      */
     @Test
     public void testGetHeight() {
         assertEquals(20, board.getHeight());
     }
-
-    /**
-     * Test: Verifica que checkCollision detecta colisiones con los bordes del tablero.
-     * Caja Negra: Caso límite - Colisión en los bordes.
-     * Usa un mock object de piece implementado a mano.
-     */
-    @Test
-    public void testCheckCollisionWithBoardEdges() {
-
-    	// Colocar fuera del borde izquierdo
-        MockPiece mockPiece = new MockPiece(-1, 0);
-        assertTrue(board.checkCollision(mockPiece));
-
-        // Colocar fuera del borde derecho
-        mockPiece = new MockPiece(9, 19);
-        assertTrue(board.checkCollision(mockPiece));
-
-        // Colocar fuera del borde superior
-        mockPiece = new MockPiece(0, -1);
-        assertTrue(board.checkCollision(mockPiece));
-
-        // Colocar en el borde inferior
-        mockPiece = new MockPiece(0, 19);
-        assertTrue(board.checkCollision(mockPiece));
-    }
-
+    
     /**
      * Test: Verifica que lockPiece marca las celdas de la pieza en el tablero como ocupadas.
-     * Caja Negra: Partición equivalente - Bloquear una pieza en el tablero.
      */
     @Test
     public void testLockPiece() {
@@ -217,16 +198,66 @@ public class BoardTest {
         assertTrue(board.isCellOccupied(1, 0));
         assertTrue(board.isCellOccupied(1, 1));
     }
+
+    /**
+     * Test: Verifica que checkCollision detecta colisiones.
+     */
+    @Test
+    public void testCheckCollisionConditionCoverage() {
+
+    	// Colocar fuera del borde izquierdo
+        MockPiece mockPiece = new MockPiece(-1, 0);
+        assertTrue(board.checkCollision(mockPiece));
+
+        // Colocar fuera del borde derecho
+        mockPiece = new MockPiece(10, 0);
+        assertTrue(board.checkCollision(mockPiece));
+        
+        // Colocar fuera del borde superior
+        mockPiece = new MockPiece(0, -1);
+        assertTrue(board.checkCollision(mockPiece));
+
+        // Colocar en el borde inferior
+        mockPiece = new MockPiece(0, 20);
+        assertTrue(board.checkCollision(mockPiece));
+        
+        //Colocar dentro del tablero, pero en una celda ocupada
+        mockPiece = new MockPiece(5, 5);
+        board.occupyCell(5, 5); 
+        assertTrue(board.checkCollision(mockPiece));
+
+        // Caso 6: Colocar dentro del tablero en una celda libre (sin colisión)
+        mockPiece = new MockPiece(8, 8);
+        assertFalse(board.checkCollision(mockPiece));
+        
+
+    }
+    
+    /**
+     * Test: Verifica que checkCollision detecta colisiones con piezas ya bloqueadas.
+     */
+    @Test
+    public void testCheckCollisionWithLockedPieces() {
+    	
+        // Crear un mock de la pieza bloqueada en la esquina superior izquierda
+        MockPiece mockPiece = new MockPiece(0, 0);
+        board.lockPiece(mockPiece);
+
+        // Crear un mock de una nueva pieza
+        MockPiece newMockPiece = new MockPiece(0, 1);
+        assertTrue(board.checkCollision(newMockPiece));
+    }
+
     
     
     /**
      * Test: Verifica que el método prependRow añade una fila al inicio del tablero.
-     * Caja Negra: Se prueba el comportamiento de prependRow al agregar una fila.
-     * Se espera que la nueva fila esté al inicio del tablero y las filas existentes se desplacen hacia abajo.
+     * Se espera que la nueva fila esté al inicio del tablero y las filas existentes 
+     * se desplacen hacia abajo.
      */
     @Test
     public void testPrependRow() {
-        // Llenamos algunas celdas en la fila 19 y 18
+
         for (int x = 0; x < board.getWidth(); x++) {
             board.occupyCell(x, 19); // Llena la fila 19
         }
@@ -236,15 +267,13 @@ public class BoardTest {
         board.occupyCell(6, 18);
         board.occupyCell(8, 18);
         
-        // Llamamos al método clearFullLines para que se agregue una nueva fila vacía arriba
-        board.clearFullLines(); // Debería agregar una fila vacía al principio del tablero.
+        board.clearFullLines();
 
         // Verificamos que la nueva fila vacía esté al principio (en la posición 0)
         for (int x = 0; x < board.getWidth(); x++) {
-            assertFalse(board.isCellOccupied(x, 0)); // La fila 0 debe estar vacía
+            assertFalse(board.isCellOccupied(x, 0));
         }
 
-        // Verificamos que las filas 18 y 19 hayan sido desplazadas
         assertFalse(board.isCellOccupied(0, 19));// La fila 19 debe ser igual que era la 18
         assertTrue(board.isCellOccupied(1, 19));
         assertFalse(board.isCellOccupied(2, 19));
@@ -259,24 +288,6 @@ public class BoardTest {
     }
 
     /**
-     * Test: Verifica que checkCollision detecta colisiones con piezas ya bloqueadas.
-     * Usa un mock object de piece implementado a mano.
-     */
-    @Test
-    public void testCheckCollisionWithLockedPieces() {
-    	
-        // Crear un mock de la pieza bloqueada en la esquina superior izquierda
-        MockPiece mockPiece = new MockPiece(0, 0);
-        board.lockPiece(mockPiece);
-
-        // Crear un mock de una nueva pieza en la misma posición
-        MockPiece newMockPiece = new MockPiece(0, 0);
-        
-        // Verificar si hay colisión con la pieza bloqueada
-        assertTrue(board.checkCollision(newMockPiece));
-    }
-    
-    /**
      * Test: Verifica que el método renderWithPiece renderiza correctamente el tablero con la pieza.
      */
     @Test
@@ -284,21 +295,17 @@ public class BoardTest {
         // Inicializamos un tablero de 5x5.
         Board board = new Board(5, 5);
 
-        // Creamos una pieza de tamaño 2x2 (forma de bloque).
+        // Creamos una pieza de tamaño 2x2 (forma de cuadrado).
         boolean[][] shape = new boolean[][]{
             {true, true},
             {true, true}
         };
         Piece piece = new Piece(shape);
         
-        // Colocamos la pieza en la posición (1, 1).
         piece.setPosition(1, 1);
 
-        // Renderizamos el tablero con la pieza.
         char[][] rendered = board.renderWithPiece(piece);
 
-        // Verificamos que el tablero se renderiza correctamente.
-        // Tablero vacío (sin piezas bloqueadas).
         char[][] expected = new char[][]{
             {' ', ' ', ' ', ' ', ' '},
             {' ', 'O', 'O', ' ', ' '},
@@ -307,11 +314,45 @@ public class BoardTest {
             {' ', ' ', ' ', ' ', ' '}
         };
 
-        // Comparamos el resultado esperado con el renderizado
+
         for (int y = 0; y < 5; y++) {
             for (int x = 0; x < 5; x++) {
                 assertEquals("Error en la celda (" + y + ", " + x + ")", expected[y][x], rendered[y][x]);
             }
         }
+    }
+    
+    /**
+     * Test: Verifica que el método renderWithPiece funcione correctamente en todos los casos.
+     */
+    @Test
+    void testRenderWithPieceConditionCoverage() {
+    	// Caso 1: Cuando la pieza se coloca dentro del board y su forma es de 1x1.
+        Piece piece = new Piece(new boolean[][] { { true } });
+        piece.setPosition(5, 5); // pieza en (5,5)
+        char[][] rendered = board.renderWithPiece(piece);
+        assertEquals('O', rendered[5][5]);
+
+        // Caso 2: Cuando la pieza se coloca fuera del board.
+        piece = new Piece(new boolean[][] { { true } });
+        piece.setPosition(30, 30); // pieza fuera del board (30,30)
+        rendered = board.renderWithPiece(piece);
+        assertEquals(' ', rendered[30][30]);
+
+        // Caso 3: Cuando la pieza tiene una forma que no afecta al board.
+        piece = new Piece(new boolean[][] { { false } });
+        piece.setPosition(5, 5); // pieza sin forma
+        rendered = board.renderWithPiece(piece);
+        assertEquals(' ', rendered[5][5]);
+
+        // Caso 4: Cuando la pieza se coloca parcialmente fuera del board.
+        piece = new Piece(new boolean[][] { { true, true }, { true, true } });
+        piece.setPosition(19, 9);
+        rendered = board.renderWithPiece(piece);
+        
+        // Verificamos que algunas partes de la pieza estén dentro del board
+        assertEquals('O', rendered[9][19]);
+        assertEquals(' ', rendered[9][20]);
+        assertEquals('O', rendered[8][19]);
     }
 }
