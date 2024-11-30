@@ -64,8 +64,27 @@ public class BoardTest {
      */
     @Test
     public void testIsCellOccupiedAfterOccupyCell() {
-    	board.occupyCell(0, 0);
-        assertTrue(board.isCellOccupied(0, 0));
+        // Caso 1: Todas las condiciones son verdaderas (dentro del tablero, celda no ocupada).
+        assertFalse("Caso 1: Celda libre dentro del tablero", board.isCellOccupied(5, 5));
+
+        // Caso 2: Todas las condiciones son verdaderas (dentro del tablero, celda ocupada).
+        board.occupyCell(3, 3);
+        assertTrue("Caso 2: Celda ocupada dentro del tablero", board.isCellOccupied(3, 3));
+
+        // Caso 3: y < 0 (fuera del borde superior).
+        assertFalse("Caso 3: Fuera del borde superior", board.isCellOccupied(5, -1));
+
+        // Caso 4: y >= height (fuera del borde inferior).
+        assertFalse("Caso 4: Fuera del borde inferior", board.isCellOccupied(5, 20));
+
+        // Caso 5: x < 0 (fuera del borde izquierdo).
+        assertFalse("Caso 5: Fuera del borde izquierdo", board.isCellOccupied(-1, 5));
+
+        // Caso 6: x >= width (fuera del borde derecho).
+        assertFalse("Caso 6: Fuera del borde derecho", board.isCellOccupied(10, 5));
+
+        // Caso 7: Múltiples condiciones falsas (fuera del tablero en ambas dimensiones).
+        assertFalse("Caso 7: Fuera del tablero completamente", board.isCellOccupied(-1, 20));
     }
 
     /**
@@ -227,7 +246,7 @@ public class BoardTest {
         assertTrue("Error en caso 5",board.checkCollision(mockPiece));
 
         // Caso 6: Colocar dentro del tablero en una celda libre (sin colisión)
-        mockPiece = new MockPiece(8, 8);
+        mockPiece = new MockPiece(2, 2);
         assertFalse("Error en caso 6",board.checkCollision(mockPiece));
         
 
