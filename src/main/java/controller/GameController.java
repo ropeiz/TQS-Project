@@ -34,7 +34,8 @@ public class GameController {
     }
 
     /**
-     * @return Devuelve si el juego ha terminado.
+     * Setter para la variable isGameOver
+     * @param over Si ha acabado el juego over = true.
      * */
     public void setIsGameOver(final boolean over) {
         this.isGameOver = over;
