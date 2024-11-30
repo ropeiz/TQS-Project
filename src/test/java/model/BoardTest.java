@@ -75,35 +75,35 @@ public class BoardTest {
     public void testOccupyCellWithinBoard() {
         // Caso 1: y >= 0 y y < height (ambas condiciones de y positivas)
         board.occupyCell(5, 5);
-        assertTrue(board.isCellOccupied(5, 5));
+        assertTrue("Error en caso 1",board.isCellOccupied(5, 5));
 
         // Caso 2: y >= 0 pero y >= height (y fuera del rango)
         board.occupyCell(5, 15);
-        assertFalse(board.isCellOccupied(5, 15));
+        assertFalse("Error en caso 2",board.isCellOccupied(5, 15));
 
         // Caso 3: y < 0 pero y < height (y fuera del rango por ser negativo)
         board.occupyCell(5, -1);
-        assertFalse(board.isCellOccupied(5, -1));
+        assertFalse("Error en caso 3",board.isCellOccupied(5, -1));
 
         // Caso 4: x >= 0 y x < width (ambas condiciones de x positivas)
         board.occupyCell(10, 5);
-        assertTrue(board.isCellOccupied(10, 5));
+        assertTrue("Error en caso 4",board.isCellOccupied(10, 5));
 
         // Caso 5: x >= 0 pero x >= width (x fuera del rango)
         board.occupyCell(25, 5);
-        assertFalse(board.isCellOccupied(25, 5));
+        assertFalse("Error en caso 5",board.isCellOccupied(25, 5));
 
         // Caso 6: x < 0 pero x < width (x fuera del rango por ser negativo)
         board.occupyCell(-5, 5);
-        assertFalse(board.isCellOccupied(-5, 5));
+        assertFalse("Error en caso 6",board.isCellOccupied(-5, 5));
 
         // Caso 7: Ambas condiciones de x y y son negativas
         board.occupyCell(-5, -1);
-        assertFalse(board.isCellOccupied(-5, -1));
+        assertFalse("Error en caso 7",board.isCellOccupied(-5, -1));
 
         // Caso 8: Ambas condiciones de x y y son mayores que width/height
         board.occupyCell(25, 15);
-        assertFalse(board.isCellOccupied(25, 15));
+        assertFalse("Error en caso 8",board.isCellOccupied(25, 15));
     }
     
     /**
@@ -207,28 +207,28 @@ public class BoardTest {
 
     	// Colocar fuera del borde izquierdo
         MockPiece mockPiece = new MockPiece(-1, 0);
-        assertTrue(board.checkCollision(mockPiece));
+        assertTrue("Error en caso 1",board.checkCollision(mockPiece));
 
         // Colocar fuera del borde derecho
         mockPiece = new MockPiece(10, 0);
-        assertTrue(board.checkCollision(mockPiece));
+        assertTrue("Error en caso 2",board.checkCollision(mockPiece));
         
         // Colocar fuera del borde superior
         mockPiece = new MockPiece(0, -1);
-        assertTrue(board.checkCollision(mockPiece));
+        assertTrue("Error en caso 3",board.checkCollision(mockPiece));
 
         // Colocar en el borde inferior
         mockPiece = new MockPiece(0, 20);
-        assertTrue(board.checkCollision(mockPiece));
+        assertTrue("Error en caso 4",board.checkCollision(mockPiece));
         
         //Colocar dentro del tablero, pero en una celda ocupada
         mockPiece = new MockPiece(5, 5);
         board.occupyCell(5, 5); 
-        assertTrue(board.checkCollision(mockPiece));
+        assertTrue("Error en caso 5",board.checkCollision(mockPiece));
 
         // Caso 6: Colocar dentro del tablero en una celda libre (sin colisión)
         mockPiece = new MockPiece(8, 8);
-        assertFalse(board.checkCollision(mockPiece));
+        assertFalse("Error en caso 6",board.checkCollision(mockPiece));
         
 
     }
@@ -331,19 +331,23 @@ public class BoardTest {
         Piece piece = new Piece(new boolean[][] { { true } });
         piece.setPosition(5, 5); // pieza en (5,5)
         char[][] rendered = board.renderWithPiece(piece);
-        assertEquals('O', rendered[5][5]);
+        assertEquals("Error en caso 1",'O', rendered[5][5]);
 
         // Caso 2: Cuando la pieza se coloca fuera del board.
         piece = new Piece(new boolean[][] { { true } });
         piece.setPosition(30, 30); // pieza fuera del board (30,30)
         rendered = board.renderWithPiece(piece);
-        assertEquals(' ', rendered[30][30]);
+        for (int i = 0; i < rendered.length; i++) {
+            for (int j = 0; j < rendered[i].length; j++) {
+                assertEquals("Error en caso 2", ' ', rendered[i][j]);
+            }
+        }
 
         // Caso 3: Cuando la pieza tiene una forma que no afecta al board.
         piece = new Piece(new boolean[][] { { false } });
         piece.setPosition(5, 5); // pieza sin forma
         rendered = board.renderWithPiece(piece);
-        assertEquals(' ', rendered[5][5]);
+        assertEquals("Error en caso 3",' ', rendered[5][5]);
 
         // Caso 4: Cuando la pieza se coloca parcialmente fuera del board.
         piece = new Piece(new boolean[][] { { true, true }, { true, true } });
@@ -351,8 +355,8 @@ public class BoardTest {
         rendered = board.renderWithPiece(piece);
         
         // Verificamos que algunas partes de la pieza estén dentro del board
-        assertEquals('O', rendered[9][19]);
-        assertEquals(' ', rendered[9][20]);
-        assertEquals('O', rendered[8][19]);
+        assertEquals("Error en final 1",'O', rendered[9][19]);
+        assertEquals("Error en final 2",' ', rendered[9][20]);
+        assertEquals("Error en final 3",'O', rendered[8][19]);
     }
 }
