@@ -105,8 +105,8 @@ public class BoardTest {
         assertFalse("Error en caso 3",board.isCellOccupied(5, -1));
 
         // Caso 4: x >= 0 y x < width (ambas condiciones de x positivas)
-        board.occupyCell(10, 5);
-        assertTrue("Error en caso 4",board.isCellOccupied(10, 5));
+        board.occupyCell(9, 5);
+        assertTrue("Error en caso 4",board.isCellOccupied(9, 5));
 
         // Caso 5: x >= 0 pero x >= width (x fuera del rango)
         board.occupyCell(25, 5);
