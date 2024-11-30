@@ -72,7 +72,7 @@ public class BoardTest {
      * Test: Verifica que se marquen como ocupadas las celdas que estan dentro del tablero.
      */
     @Test
-    void testOccupyCellWithinBoard() {
+    public void testOccupyCellWithinBoard() {
         // Caso 1: y >= 0 y y < height (ambas condiciones de y positivas)
         board.occupyCell(5, 5);
         assertTrue(board.isCellOccupied(5, 5));
@@ -326,7 +326,7 @@ public class BoardTest {
      * Test: Verifica que el método renderWithPiece funcione correctamente en todos los casos.
      */
     @Test
-    void testRenderWithPieceConditionCoverage() {
+    public void testRenderWithPieceConditionCoverage() {
     	// Caso 1: Cuando la pieza se coloca dentro del board y su forma es de 1x1.
         Piece piece = new Piece(new boolean[][] { { true } });
         piece.setPosition(5, 5); // pieza en (5,5)
