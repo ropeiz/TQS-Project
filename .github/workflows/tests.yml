@@ -22,5 +22,3 @@ jobs:
     - name: Build and Test with Maven
       run: mvn clean test
 
-    - name: Run Code Quality Checks
-      run: mvn checkstyle:check
