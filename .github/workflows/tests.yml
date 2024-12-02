@@ -1,4 +1,4 @@
-name: Java TESTS
+name: TESTS
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,5 +22,3 @@ jobs:
     - name: Build and Test with Maven
       run: mvn clean test
 
-    - name: Run Code Quality Checks
-      run: mvn checkstyle:check

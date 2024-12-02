@@ -1,0 +1,23 @@
+name: Checkstyle
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-checkstyle:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: '11'  # Cambia la versión según tus necesidades
+
+    - name: Run Code Quality Checks
+      run: mvn checkstyle:check
