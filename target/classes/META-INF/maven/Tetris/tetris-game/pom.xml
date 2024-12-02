@@ -24,7 +24,6 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
-
         <!-- Mockito para facilitar las pruebas unitarias con mocks -->
         <dependency>
             <groupId>org.mockito</groupId>
