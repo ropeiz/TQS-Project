@@ -141,7 +141,7 @@ public class Board {
 
     /**
     * @param row La línea que se comprueba.
-    * @return Devuelve si una línea está completamente llena. 
+    * @return Devuelve si una línea está completamente llena.
     */
     public boolean isFull(final boolean[] row) {
         for (boolean cell : row) {
