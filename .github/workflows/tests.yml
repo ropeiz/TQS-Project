@@ -1,4 +1,4 @@
-name: Java TESTS
+name: TESTS
 
 on:
   push:
